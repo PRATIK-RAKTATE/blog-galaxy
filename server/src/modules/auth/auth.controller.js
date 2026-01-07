@@ -1,52 +1,64 @@
-import asyncHandler from "../../utils/asyncHandler.js";
-import * as authService from "./auth.service.js";
-import { ApiResponse } from "../../utils/ApiResponse.js";
+import { RefreshToken } from "../user/refreshToken.model.js";
+import { compareHash, hashValue } from "../../utils/hash.js";
+import { setRefreshCookie } from "../../utils/cookie.js";
+import {
+  generateAccessToken,
+  generateRefreshToken,
+} from "../../utils/token.js";
+import { registerUser, loginUser } from "../auth/auth.service.js";
 
-/* ---------- Register User ---------- */
-export const registerController = asyncHandler(async (req, res) => {
-  const user = await authService.register(req.body);
-  res.status(201).json(ApiResponse.success(user, "User registered successfully"));
-});
+export const register = async (req, res) => {
+  const user = await registerUser(req.body.email, req.body.password);
+  res.status(201).json({ id: user._id });
+};
 
-/* ---------- Login User ---------- */
-export const loginController = asyncHandler(async (req, res) => {
-  const { accessToken, refreshToken, user } = await authService.login(req.body);
-  
-  // Optionally, send refresh token as httpOnly cookie
-  res.cookie("refreshToken", refreshToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "Strict",
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+export const login = async (req, res) => {
+  const { user, accessToken, refreshToken } = await loginUser(
+    req.body.email,
+    req.body.password,
+    { ipAddress: req.ip, userAgent: req.headers["user-agent"] }
+  );
+
+  setRefreshCookie(res, refreshToken);
+  res.json({ accessToken });
+};
+
+export const refresh = async (req, res) => {
+  const token = req.cookies.refreshToken;
+  if (!token) return res.sendStatus(401);
+
+  const stored = await RefreshToken.findOne({ revokedAt: null });
+  if (!stored) return res.sendStatus(401);
+
+  const valid = await compareHash(token, stored.tokenHash);
+  if (!valid) return res.sendStatus(401);
+
+  stored.revokedAt = new Date();
+  const newRefresh = generateRefreshToken();
+  stored.replacedByToken = await hashValue(newRefresh);
+  await stored.save();
+
+  await RefreshToken.create({
+    userId: stored.userId,
+    tokenHash: await hashValue(newRefresh),
+    expiresAt: stored.expiresAt,
   });
 
-  res.status(200).json(ApiResponse.success({ accessToken, user }, "Login successful"));
-});
+  setRefreshCookie(res, newRefresh);
+  res.json({ accessToken: generateAccessToken({ _id: stored.userId }) });
+};
 
-/* ---------- Refresh JWT Token ---------- */
-export const refreshTokenController = asyncHandler(async (req, res) => {
-  const refreshToken = req.cookies.refreshToken || req.body.refreshToken;
-  const { accessToken, refreshToken: newRefreshToken } = await authService.refreshToken(refreshToken);
-
-  // Update cookie if necessary
-  if (newRefreshToken) {
-    res.cookie("refreshToken", newRefreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "Strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
+export const logout = async (req, res) => {
+  const token = req.cookies.refreshToken;
+  if (token) {
+    const tokens = await RefreshToken.find();
+    for (const t of tokens) {
+      if (await compareHash(token, t.tokenHash)) {
+        t.revokedAt = new Date();
+        await t.save();
+      }
+    }
   }
-
-  res.status(200).json(ApiResponse.success({ accessToken }, "Token refreshed successfully"));
-});
-
-/* ---------- Logout User ---------- */
-export const logoutController = asyncHandler(async (req, res) => {
-  await authService.logout(req.user.id);
-  
-  // Clear cookie
   res.clearCookie("refreshToken");
-
-  res.status(200).json(ApiResponse.success(null, "Logged out successfully"));
-});
+  res.sendStatus(204);
+};

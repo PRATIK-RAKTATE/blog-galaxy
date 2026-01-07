@@ -5,6 +5,7 @@ import routes from './routes/index.js';
 import infraRoutes from './modules/infra/infra.routes.js';
 import { errorMiddleware } from './middlewares/error.middleware.js';
 import { env } from './config/env.config.js';
+import authRoutes from './modules/auth/auth.routes.js'
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use(express.json({ limit: '10kb' }));
 
 app.use('/', infraRoutes);
 app.use('/api/v1', routes);
+app.use("/auth", authRoutes);
 
 app.use(errorMiddleware);
 

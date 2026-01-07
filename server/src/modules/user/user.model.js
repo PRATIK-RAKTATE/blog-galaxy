@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema(
       trim: true,
       minlength: 3,
       maxlength: 50,
+      index: true
     },
     email: {
       type: String,
@@ -21,6 +22,10 @@ const userSchema = new mongoose.Schema(
       required: [true, "Password is required"],
       minlength: 8,
       select: false, // never return password in queries by default
+    },
+    passwordHash: {
+      type: String,
+      required: true
     },
     role: {
       type: String,
