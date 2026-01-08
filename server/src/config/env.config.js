@@ -13,6 +13,7 @@ export const env = {
   MONGO_URI: process.env.MONGO_URI || "mongodb://127.0.0.1:27017/mydb",
 
   // JWT Authentication
+  JWT_ACCESS_SECRET: process.env.JWT_ACCESS_SECRET,
   JWT_SECRET: process.env.JWT_SECRET || "supersecretkey",
   JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || "1h",
   JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET || "refreshsecretkey",
