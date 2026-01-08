@@ -6,8 +6,8 @@ const Navbar = () => {
     <nav className="w-full flex justify-between items-center p-4 sm:p-6 sm:px-24 absolute top-0">
       {/* Logo */}
       <div className="flex items-center gap-2 cursor-pointer">
-        <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold">A</div>
-        <h2 className="text-xl font-bold tracking-tight text-slate-800">AI-Blog</h2>
+        <img src={assets.logo} width={50} alt="" />
+        <h2 className="text-xl font-bold tracking-tight text-slate-800">BlogGalaxy</h2>
       </div>
 
       {/* Login Button */}
