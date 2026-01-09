@@ -3,7 +3,7 @@ import { assets } from '../assets/assets';
 
 const Header = () => {
   return (
-    <header className="flex flex-col items-center mt-20 px-4 text-center">
+    <header className="flex flex-col items-center mt-20 pt-4 px-4 text-center">
       {/* Small Badge */}
       <div className="flex items-center gap-2 bg-indigo-50 border border-indigo-100 px-4 py-1 rounded-full text-indigo-600 text-sm font-medium mb-6">
         <span>✨ New: AI Content Generator 2.0</span>
@@ -34,9 +34,6 @@ const Header = () => {
 
       {/* Optional: App Preview Image placeholder */}
       <div className="mt-16 w-full max-w-4xl border border-gray-200 rounded-2xl shadow-2xl overflow-hidden">
-         <div className="bg-gray-100 h-64 sm:h-96 flex items-center justify-center text-gray-400">
-            [ Dashboard Preview Placeholder ]
-         </div>
       </div>
     </header>
   );
