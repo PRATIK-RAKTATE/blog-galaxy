@@ -6,7 +6,7 @@ const connectDB = async () => {
         console.log("mongodb connected at ", process.env.MONGO_URI)
     })
 
-    mongoose.connect(`${process.env.MONGO_URI}/auth-module`);
+    mongoose.connect(`${process.env.MONGO_URI}`);
 }
 
 export default connectDB;
