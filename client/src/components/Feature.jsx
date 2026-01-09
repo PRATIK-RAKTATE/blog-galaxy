@@ -24,7 +24,7 @@ const Features = () => {
       badge: "AI THAT LEARNS YOUR VOICE",
       title: "Brand Voice Mastery",
       desc: "Train our AI on your best content once, and it will perfectly match your brand voice in every piece it creates forever.",
-      color: "text-orange-500",
+      color: "text-green-500",
     },
     {
       badge: "CONNECTS WITH EVERYTHING",
@@ -66,7 +66,7 @@ const Features = () => {
               <div className="mt-auto bg-gray-50 rounded-xl border border-gray-100 p-4 h-48 flex flex-col gap-3">
                 <div className="flex gap-1">
                   <div className="w-2 h-2 rounded-full bg-red-400"></div>
-                  <div className="w-2 h-2 rounded-full bg-yellow-400"></div>
+                  <div className="w-2 h-2 rounded-full bg-blue-400"></div>
                   <div className="w-2 h-2 rounded-full bg-green-400"></div>
                 </div>
                 <div className="w-full h-2 bg-gray-200 rounded-full"></div>
