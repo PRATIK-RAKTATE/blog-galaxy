@@ -55,9 +55,9 @@ const Features = () => {
               </span>
 
               {/* Text Content */}
-              <h3 className="text-2xl font-bold text-[#1A1A3F] mb-4">
+              <h2 className="text-2xl font-bold text-[#1A1A3F] mb-4">
                 {item.title}
-              </h3>
+              </h2>
               <p className="text-gray-500 text-sm leading-relaxed mb-8">
                 {item.desc}
               </p>
