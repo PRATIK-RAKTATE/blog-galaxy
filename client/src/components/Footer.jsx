@@ -13,7 +13,7 @@ const Footer = () => {
         <div className="lg:col-span-2 flex flex-col gap-6">
           <div className="flex items-center gap-2">
             <img src={assets.logo} alt="Logo" className="w-8" />
-            <h2 className="text-white text-2xl font-bold uppercase tracking-tight">GravityWrite</h2>
+            <h2 className="text-white text-2xl font-bold uppercase tracking-tight">BlogGalaxy</h2>
           </div>
           <p className="max-w-xs text-sm leading-relaxed text-slate-400">
             Your AI Assistant for Content Creation, SEO & More. Start for Free!
