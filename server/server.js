@@ -14,27 +14,16 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 connectDB();
-const allowedOrigins = [
-     'http://localhost:5173',
-     process.env.VITE_FRONTEND_URL
-].filter(Boolean); // This removes any undefined/null values
-
 app.use(cors({
      origin: function (origin, callback) {
-          // Allow requests with no origin (like mobile apps or curl)
-          if (!origin) return callback(null, true);
-          
-          if (allowedOrigins.includes(origin)) {
-               callback(null, true);
-          } else {
-               console.log("Blocked by CORS:", origin); // Helpful for debugging
-               callback(new Error('Not allowed by CORS'));
-          }
+          // This tells the browser "Yes" regardless of what the origin is
+          // while still supporting the 'credentials: true' requirement.
+          callback(null, true); 
      },
      credentials: true,
      methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
      allowedHeaders: ['Content-Type', 'Authorization']
-}));
+}));;
 app.use(cookieParser())
 app.use(express.json());
 
