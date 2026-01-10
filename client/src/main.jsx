@@ -5,10 +5,15 @@ import App from './App.jsx';
 import { BrowserRouter } from 'react-router-dom';
 import { AppContextProvider } from './context/AppContext.jsx';
 
+// For Netlify root deployment
+const basename = '/';
+
 createRoot(document.getElementById('root')).render(
-    <BrowserRouter>
+  <StrictMode>
+    <BrowserRouter basename={basename}>
       <AppContextProvider>
         <App />
       </AppContextProvider>
     </BrowserRouter>
+  </StrictMode>
 );
