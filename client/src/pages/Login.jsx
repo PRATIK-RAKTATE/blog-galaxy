@@ -17,40 +17,50 @@ const Login = () => {
 
   // ✅ Submit handler
   const onSubmitHandler = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      axios.defaults.withCredentials = true;
+  try {
+    axios.defaults.withCredentials = true;
 
-      if (state === 'Sign Up') {
-        const { data } = await axios.post(
-          `${backendUrl}/api/v1/auth/register`,
-          { name, email, password }
-        );
+    if (state === 'Sign Up') {
+      const { data } = await axios.post(
+        `${backendUrl}/api/v1/auth/register`,
+        { name, email, password }
+      );
 
-        if (data.success) {
-          setIsLoggedin(true);
-          navigate('/');
-        } else {
-          toast.error(data.message);
-        }
+      if (data.success) {
+        toast.success("Registration successful 🎉");
+        setIsLoggedin(true);
+
+        setTimeout(() => {
+          navigate("/");
+        }, 800);
       } else {
-        const { data } = await axios.post(
-          `${backendUrl}/api/v1/auth/login`,
-          { email, password }
-        );
-
-        if (data.success) {
-          setIsLoggedin(true);
-          navigate('/');
-        } else {
-          toast.error(data.message);
-        }
+        toast.error(data.message);
       }
-    } catch (err) {
-      toast.error(err.response?.data?.message || 'Something went wrong');
+
+    } else {
+      const { data } = await axios.post(
+        `${backendUrl}/api/v1/auth/login`,
+        { email, password }
+      );
+
+      if (data.success) {
+        toast.success("Login successful ✅");
+        setIsLoggedin(true);
+
+        setTimeout(() => {
+          navigate("/");
+        }, 500);
+      } else {
+        toast.error(data.message);
+      }
     }
-  };
+  } catch (err) {
+    toast.error(err.response?.data?.message || "Something went wrong");
+  }
+};
+
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen px-6 sm:px-0 bg-gradient-to-br from-blue-200 to-purple-400">
