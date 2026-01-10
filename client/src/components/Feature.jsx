@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Features = () => {
   const featureData = [
@@ -39,6 +40,8 @@ const Features = () => {
       color: "text-purple-500",
     }
   ];
+
+  const navigate = useNavigate();
 
   return (
     <div className="bg-[#F8FAFF] py-20 px-6">
@@ -84,7 +87,7 @@ const Features = () => {
 
         {/* Bottom Button */}
         <div className="flex justify-center mt-16">
-            <button className="bg-[#3D52FF] text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-100">
+            <button onClick={() => navigate('/register')} className="bg-[#3D52FF] text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-100">
                 Start Your Free Trial
             </button>
         </div>

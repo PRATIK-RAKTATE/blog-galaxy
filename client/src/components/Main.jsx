@@ -1,11 +1,14 @@
 import React from 'react';
 import { assets } from '../assets/assets';
+import {  useNavigate } from 'react-router-dom';
 
 const Main = () => {
   const logos = [
     assets.accenture, assets.comcast, assets.paypal, 
     assets.swiggy, assets.zomato, assets.unacademy, assets.hreme
   ];
+
+  const navigate = useNavigate();
 
   return (
     <div className="flex flex-col items-center justify-center bg-white py-10 md:py-20 px-4 overflow-x-hidden">
@@ -48,7 +51,7 @@ const Main = () => {
         </p>
 
         {/* Call to Action Button */}
-        <button className="w-full sm:w-auto bg-[#3D52FF] hover:bg-[#3245E6] text-white px-10 py-4 rounded-xl font-bold text-sm md:text-lg flex items-center justify-center gap-2 transition-all shadow-xl shadow-blue-200 active:scale-95">
+        <button onClick={() => navigate('/create')} className="w-full sm:w-auto bg-[#3D52FF] hover:bg-[#3245E6] text-white px-10 py-4 rounded-xl font-bold text-sm md:text-lg flex items-center justify-center gap-2 transition-all shadow-xl shadow-blue-200 active:scale-95">
           <span>✨</span> Create Your First Blog
         </button>
       </div>

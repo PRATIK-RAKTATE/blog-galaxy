@@ -1,8 +1,13 @@
 import React from 'react';
 import { assets } from '../assets/assets';
+import { useNavigate } from 'react-router-dom';
+
+
 
 const Header = () => {
+  const navigate = useNavigate();
   return (
+
     <header className="flex flex-col items-center mt-20 pt-4 px-4 text-center">
       {/* Small Badge */}
       <div className="flex items-center gap-2 bg-indigo-50 border border-indigo-100 px-4 py-1 rounded-full text-indigo-600 text-sm font-medium mb-6">
@@ -24,10 +29,10 @@ const Header = () => {
 
       {/* Call to Action */}
       <div className="mt-10 flex flex-col sm:flex-row gap-4">
-        <button className="bg-slate-900 text-white px-10 py-3.5 rounded-full font-semibold hover:bg-slate-800 transition-all">
+        <button onClick={() => navigate('/register')} className="bg-slate-900 text-white px-10 py-3.5 rounded-full font-semibold hover:bg-slate-800 transition-all">
           Get Started Free
         </button>
-        <button className="border border-gray-300 px-10 py-3.5 rounded-full font-semibold hover:bg-gray-50 transition-all">
+        <button onClick={() => navigate('/explore')} className="border border-gray-300 px-10 py-3.5 rounded-full font-semibold hover:bg-gray-50 transition-all">
           Explore Blogs
         </button>
       </div>
