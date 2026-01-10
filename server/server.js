@@ -14,17 +14,17 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 connectDB();
-allowedOrigins = [
+const allowedOrigins = [
      'http://localhost:5173',
      process.env.VITE_FRONTEND_URL
 ]
-
-app.use(cookieParser())
-app.use(express.json());
 app.use(cors({
      origin: allowedOrigins,
     credentials: true
 }))
+
+app.use(cookieParser())
+app.use(express.json());
 
 
 
