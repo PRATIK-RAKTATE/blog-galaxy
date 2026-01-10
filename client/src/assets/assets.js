@@ -7,6 +7,9 @@ import paypal from './paypal.svg';
 import swiggy from './swiggy.svg';
 import unacademy from './unacademy.svg';
 import zomato from './zomato.svg';
+import person from './person.png';
+import mail from './mail.png';
+import lock from './lock.png';
 
 export const assets = {
     logo,
@@ -17,5 +20,8 @@ export const assets = {
     paypal,
     swiggy,
     unacademy,
-    zomato
+    zomato,
+    person,
+    mail,
+    lock
 }

@@ -4,23 +4,18 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import EmailVerify from './pages/EmailVerify';
 import ResetPassword from './pages/ResetPassword';
-import ProtectedRoute from './routes/ProtectedRoutes';
 import Dashboard from './pages/Dashboard';
-import Register from './pages/Regiser';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const App = () => {
   return (
     <div>
+      <ToastContainer />
       <Routes>
         <Route path='/' element={<Home/>} />
         <Route path='/login' element={<Login/>} />
-        <Route path='/register' element={<Register/>} />
-        <Route path='dashboard' element= {
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        } />
         <Route path='/email-verify' element={<EmailVerify/>} />
         <Route path='/reset-password' element={<ResetPassword/>} />
         
