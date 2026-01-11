@@ -4,65 +4,74 @@ import userModel from "../models/user.model.js";
 import transporter from '../config/nodemaler.js';
 
 export const register = async (req, res) => {
-    const { name, email, password } = req.body;
+  const { name, email, password } = req.body;
 
-    if (!name || !email || !password) {
-        return res.json({
-            success: false,
-            message: "Please provide name, email and password"
-        })
+  if (!name || !email || !password) {
+    return res.json({
+      success: false,
+      message: "Please provide name, email and password",
+    });
+  }
+
+  try {
+    const existingUser = await userModel.findOne({ email });
+    if (existingUser) {
+      return res.json({
+        success: false,
+        message: "This user is already registered",
+      });
     }
 
-    try {
+    const hashedPassword = await bcrypt.hash(password, 10);
 
+    const user = new userModel({
+      user: name,
+      email,
+      password: hashedPassword,
+    });
 
-        const existingUser = await userModel.findOne({ email });
+    await user.save();
 
-        if (existingUser) {
-            return res.json({
-                success: false,
-                message: "This user is already registered"
-            })
-        }
+    // Generate JWT token
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
 
-        const hashedPassword = await bcrypt.hash(password, 10);
+    // Set cookie
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // only HTTPS
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    });
 
-        const user = new userModel({
-            user: name, email, password: hashedPassword
-        });
-        await user.save();
+    // Respond immediately to frontend
+    res.json({
+      success: true,
+      message: "User registered successfully",
+    });
 
-        // create token for that usr by extracting id of user from mongodb 
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+    // Send email asynchronously (fire-and-forget)
+    const mailOptions = {
+      from: process.env.SENDER_EMAIL,
+      to: email,
+      subject: "Welcome to platform",
+      text: `Welcome ${name}! Your account has been successfully registered.`,
+    };
 
-        // send this token to user
-        res.cookie('token', token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
-            maxAge: 7 * 24 * 60 * 60 * 1000
-        })
+    transporter
+      .sendMail(mailOptions)
+      .then(() => console.log("Welcome email sent"))
+      .catch((err) => console.error("Email failed:", err));
+  } catch (err) {
+    console.error("Register error:", err);
+    res.json({
+      success: false,
+      message: "Something went wrong. Please try again later.",
+    });
+  }
+};
 
-        // sending wellcome email
-        const mailOptions = {
-            from: process.env.SENDER_EMAIL,
-            to: email,
-            subject: 'Welcome to platform',
-            text: 'Welcome to our website your account has been successfully registerd hope so you use it'
-        }
-
-        await transporter.sendMail(mailOptions);
-
-        return res.json({
-            success: true,
-            message: "User registered successfully"
-        })
-
-
-    } catch (err) {
-        res.json({ success: false, message: err.message })
-    }
-}
 
 export const login = async (req, res) => {
     const { email, password } = req.body;
