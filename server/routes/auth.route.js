@@ -8,7 +8,7 @@ import {
     sendResetOtp, 
     sendVerifyOtp, 
     verifyEmail 
-} from "../controller/auth.controller.js";
+} from "../controllers/auth.controller.js";
 import userAuth from "../middlewares/auth.middleware.js";
 
 const authRoutes = Router();
