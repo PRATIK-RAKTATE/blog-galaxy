@@ -17,7 +17,7 @@ connectDB();
 // --- CORS ---
 const allowedOrigins = [
   'https://blog-galaxy.netlify.app',
-  'http://localhost:3000'
+  'http://localhost:5173'
 ];
 app.use(cors({
   origin: function(origin, callback){
