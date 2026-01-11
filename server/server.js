@@ -39,6 +39,27 @@ app.use('/metrics', metricsRoutes);
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/user', userRoutes);
 
+app.get('/smtp', async (req, res) => {
+  try {
+    // Attempt to verify the connection
+    await transporter.verify();
+    
+    // If successful, send a 200 OK response
+    res.status(200).json({
+      status: "success",
+      message: "Brevo SMTP is connected and ready to send emails."
+    });
+  } catch (err) {
+    // If it fails, send a 500 Error response
+    res.status(500).json({
+      status: "error",
+      message: "SMTP verification failed",
+      error: err.message,
+      code: err.code
+    });
+  }
+});
+
 // --- Start ---
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`);
