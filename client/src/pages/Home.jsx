@@ -4,6 +4,7 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Main from '../components/Main'
 import Features from '../components/Feature'
+import ThreeD from './ThreeD'
 
 const Home = () => {
   return (
