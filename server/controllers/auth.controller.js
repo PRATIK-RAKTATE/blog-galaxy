@@ -48,6 +48,7 @@ export const register = async (req, res) => {
     // Respond immediately to frontend
     res.json({
       success: true,
+      token, // ✅ Return token so frontend can use it immediately if needed
       message: "User registered successfully",
     });
 
@@ -76,7 +77,7 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
     const { email, password } = req.body;
 
-    if (!email, !password) {
+    if (!email || !password) {
         return res.json({
             success: false,
             message: "Email and Password is required"
@@ -114,6 +115,7 @@ export const login = async (req, res) => {
 
         return res.json({
             success: true,
+            token, // ✅ Return token for frontend usage
             message: "User logined successfully"
         })
     } catch (err) {
@@ -267,7 +269,7 @@ export const sendResetOtp = async (req, res) => {
     }
 
     try {
-        const user = await userModel.findeOne({email});
+        const user = await userModel.findOne({email});
         if (!user) {
             res.json({
                 success: false,
@@ -315,7 +317,7 @@ export const resetPassword = async (req, res) => {
         })
     }
     try {
-        const user = await userModel.findeOne({email});
+        const user = await userModel.findOne({email});
 
         if (!user) {
             return res.json({

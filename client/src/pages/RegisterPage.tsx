@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Eye, EyeOff, ArrowLeft, Home } from "lucide-react";
+import { Eye, EyeOff, ArrowLeft } from "lucide-react";
+import { registerUser } from "../api/auth"; // ⬅️ Import the API function
 
 type RegisterFormState = {
   name: string;
@@ -32,6 +33,7 @@ export function RegisterPage(): JSX.Element {
     e.preventDefault();
     setError(null);
 
+    // 1. Client-side Validation
     if (!form.name || !form.email || !form.password) {
       setError("All fields are required");
       return;
@@ -44,10 +46,20 @@ export function RegisterPage(): JSX.Element {
 
     try {
       setIsSubmitting(true);
-      await new Promise((res) => setTimeout(res, 1200));
+
+      // 🔵 REAL BACKEND CALL
+      // We send the whole form, but the backend usually only needs name, email, password
+      await registerUser({
+        name: form.name,
+        email: form.email,
+        password: form.password,
+      });
+
+      // 🟢 Success! Redirect to login page
       navigate("/login"); 
-    } catch (err) {
-      setError("Something went wrong. Please try again.");
+    } catch (err: any) {
+      // 🔴 Catch errors from the API (e.g., "Email already in use")
+      setError(err.message);
     } finally {
       setIsSubmitting(false);
     }
@@ -55,9 +67,8 @@ export function RegisterPage(): JSX.Element {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950 px-4 py-12">
-      <div className="w-1/2 max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-8 relative">
+      <div className="w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-8 relative">
         
-        {/* Go to Home Button */}
         <Link 
           to="/" 
           className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors mb-6 group"
@@ -82,9 +93,10 @@ export function RegisterPage(): JSX.Element {
             <input
               type="text"
               name="name"
+              required
               value={form.name}
               onChange={handleChange}
-              placeholder="full name"
+              placeholder="John Doe"
               className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-transparent px-4 py-2 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -97,6 +109,7 @@ export function RegisterPage(): JSX.Element {
             <input
               type="email"
               name="email"
+              required
               value={form.email}
               onChange={handleChange}
               placeholder="you@example.com"
@@ -113,6 +126,7 @@ export function RegisterPage(): JSX.Element {
               <input
                 type={showPassword ? "text" : "password"}
                 name="password"
+                required
                 value={form.password}
                 onChange={handleChange}
                 placeholder="••••••••"
@@ -136,6 +150,7 @@ export function RegisterPage(): JSX.Element {
             <input
               type={showPassword ? "text" : "password"}
               name="confirmPassword"
+              required
               value={form.confirmPassword}
               onChange={handleChange}
               placeholder="••••••••"
@@ -145,10 +160,11 @@ export function RegisterPage(): JSX.Element {
 
           {/* Error Message */}
           {error && (
-            <p className="text-sm text-red-500 text-center mb-4">{error}</p>
+            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 text-sm p-3 rounded-lg text-center mb-4">
+              {error}
+            </div>
           )}
 
-          {/* Submit Button */}
           <button
             type="submit"
             disabled={isSubmitting}
@@ -158,7 +174,6 @@ export function RegisterPage(): JSX.Element {
           </button>
         </form>
 
-        {/* Footer */}
         <div className="mt-8 text-center text-sm text-gray-600 dark:text-gray-400">
           Already have an account?{" "}
           <Link
