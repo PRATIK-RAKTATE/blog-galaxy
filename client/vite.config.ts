@@ -49,6 +49,11 @@
         '@': path.resolve(__dirname, './src'),
       },
     },
+
+    server: {
+    port: 3000,
+    strictPort: true, // Optional: if 3000 is busy, Vite will fail instead of trying 3001
+  },
    
 
   });
