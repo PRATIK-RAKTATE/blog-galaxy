@@ -1,5 +1,5 @@
 // src/api/auth.ts
-const API_URL = "http://blog-galaxy.onrender.com/api/v1/auth";
+const API_URL = "https://blog-galaxy.onrender.com/api/v1/auth";
 
 type LoginCredentials = { email: string; password: string };
 export type LoginResponse = { token: string; message?: string };
