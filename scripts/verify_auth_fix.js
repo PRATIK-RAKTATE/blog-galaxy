@@ -1,6 +1,6 @@
 
 
-const API_URL = 'http://localhost:5000/api/v1/auth';
+const API_URL = 'https://blog-galaxy.onrender.com/api/v1/auth';
 
 async function verifyAuth() {
   const uniqueId = Date.now();
