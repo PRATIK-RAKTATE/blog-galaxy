@@ -16,6 +16,7 @@ import { RegisterPage } from "./pages/RegisterPage";
 import { DocumentationPage } from "./components/footer/Documentation";
 import { CareersPage } from "./components/footer/Careers.jsx"
 import { SecurityPage } from './components/footer/Security'
+import { CreateBlog } from './components/CreateBlog.tsx'
 
 
 type Theme = "light" | "dark";
@@ -77,7 +78,7 @@ export default function App(): JSX.Element {
         <Route path="/register" element={<RegisterPage />} /> 
         <Route path="/documentation" element={<DocumentationPage/> }/>
         <Route path="/careers" element={<CareersPage/> }/>
-        <Route path="/security" element={<SecurityPage/> }/>
+        <Route path="/create" element={<CreateBlog/> }/>
 
         {/* 404 */}
         <Route path="*" element={<Navigate to="/" replace />} />
