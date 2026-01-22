@@ -1,62 +1,87 @@
-import { useState, useEffect } from 'react';
-import { LandingPage } from './pages/LandingPage';
-import { SEOAnalysisDashboard } from './pages/SEOAnalysisDashboard';
-import { ExploreBlogs } from './pages/ExploreBlogs';
-import { ContactUs } from './pages/ContactUs';
-import { AboutUs } from './pages/AboutUs';
-import { PrivacyPolicy } from './pages/PrivacyPolicy';
-import { TermsOfService } from './pages/TermsOfService';
-import { Community } from './pages/Community';
-import { LoadingScreen } from './components/LoadingScreen';
+// App.tsx
+import { useEffect, useMemo, useState } from "react";
+import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 
-export default function App() {
+import { LandingPage } from "./pages/LandingPage";
+import { SEOAnalysisDashboard } from "./pages/SEOAnalysisDashboard";
+import { ExploreBlogs } from "./pages/ExploreBlogs";
+import { ContactUs } from "./pages/ContactUs";
+import { AboutUs } from "./pages/AboutUs";
+import { PrivacyPolicy } from "./pages/PrivacyPolicy";
+import { TermsOfService } from "./pages/TermsOfService";
+import { Community } from "./pages/Community";
+import { LoadingScreen } from "./components/LoadingScreen";
+import { LoginPage } from "./pages/LoginPage";
+import { RegisterPage } from "./pages/RegisterPage";
+import { DocumentationPage } from "./components/footer/Documentation";
+import { CareersPage } from "./components/footer/Careers.jsx"
+import { SecurityPage } from './components/footer/Security'
+
+
+type Theme = "light" | "dark";
+
+export type PageCommonProps = {
+  theme: Theme;
+  toggleTheme: () => void;
+};
+
+function AppLayout({
+  theme,
+  toggleTheme,
+}: {
+  theme: Theme;
+  toggleTheme: () => void;
+}): JSX.Element {
+  return (
+    <div className={theme === "dark" ? "dark" : ""}>
+      {/* If you have a global navbar/header, keep it here once */}
+      {/* <Navbar theme={theme} toggleTheme={toggleTheme} /> */}
+
+      {/* Routed pages render here */}
+      <Outlet />
+    </div>
+  );
+}
+
+export default function App(): JSX.Element {
   const [isLoading, setIsLoading] = useState(true);
-  const [theme, setTheme] = useState('light');
-  const [currentPage, setCurrentPage] = useState('home');
+  const [theme, setTheme] = useState<Theme>("light");
 
   useEffect(() => {
-    // Simulate initial load
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
+    const timer = window.setTimeout(() => setIsLoading(false), 2000);
+    return () => window.clearTimeout(timer);
   }, []);
 
-  const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
-  };
+  const toggleTheme = () => setTheme((t) => (t === "light" ? "dark" : "light"));
 
-  if (isLoading) {
-    return <LoadingScreen theme={theme} />;
-  }
+  const commonProps: PageCommonProps = useMemo(
+    () => ({ theme, toggleTheme }),
+    [theme]
+  );
 
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'home':
-        return <LandingPage theme={theme} toggleTheme={toggleTheme} setCurrentPage={setCurrentPage} />;
-      case 'seo-analysis':
-        return <SEOAnalysisDashboard theme={theme} toggleTheme={toggleTheme} setCurrentPage={setCurrentPage} />;
-      case 'explore':
-        return <ExploreBlogs theme={theme} toggleTheme={toggleTheme} setCurrentPage={setCurrentPage} />;
-      case 'contact':
-        return <ContactUs theme={theme} toggleTheme={toggleTheme} setCurrentPage={setCurrentPage} />;
-      case 'about':
-        return <AboutUs theme={theme} toggleTheme={toggleTheme} setCurrentPage={setCurrentPage} />;
-      case 'privacy':
-        return <PrivacyPolicy theme={theme} toggleTheme={toggleTheme} setCurrentPage={setCurrentPage} />;
-      case 'terms':
-        return <TermsOfService theme={theme} toggleTheme={toggleTheme} setCurrentPage={setCurrentPage} />;
-      case 'community':
-        return <Community theme={theme} toggleTheme={toggleTheme} setCurrentPage={setCurrentPage} />;
-      default:
-        return <LandingPage theme={theme} toggleTheme={toggleTheme} setCurrentPage={setCurrentPage} />;
-    }
-  };
+  if (isLoading) return <LoadingScreen theme={theme} />;
 
   return (
-    <div className={theme === 'dark' ? 'dark' : ''}>
-      {renderPage()}
-    </div>
+    <Routes>
+      {/* Layout wrapper (keeps theme wrapper stable) */}
+      <Route element={<AppLayout theme={theme} toggleTheme={toggleTheme} />}>
+        <Route path="/" element={<LandingPage {...commonProps} />} />
+        <Route path="/seo-analysis" element={<SEOAnalysisDashboard {...commonProps} />} />
+        <Route path="/explore" element={<ExploreBlogs {...commonProps} />} />
+        <Route path="/contact" element={<ContactUs {...commonProps} />} />
+        <Route path="/about" element={<AboutUs {...commonProps} />} />
+        <Route path="/privacy" element={<PrivacyPolicy {...commonProps} />} />
+        <Route path="/terms" element={<TermsOfService {...commonProps} />} />
+        <Route path="/community" element={<Community {...commonProps} />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} /> 
+        <Route path="/documentation" element={<DocumentationPage/> }/>
+        <Route path="/careers" element={<CareersPage/> }/>
+        <Route path="/security" element={<SecurityPage/> }/>
+
+        {/* 404 */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Route>
+    </Routes>
   );
 }

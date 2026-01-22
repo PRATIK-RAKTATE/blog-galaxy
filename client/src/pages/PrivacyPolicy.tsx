@@ -213,8 +213,8 @@ export function PrivacyPolicy({ theme, toggleTheme, setCurrentPage }) {
                   </p>
                   <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-6">
                     <p className="text-gray-900 dark:text-white mb-2"><strong>Email:</strong> privacy@BlogGalaxy.ai</p>
-                    <p className="text-gray-900 dark:text-white mb-2"><strong>Address:</strong> 123 Innovation Drive, San Francisco, CA 94105</p>
-                    <p className="text-gray-900 dark:text-white"><strong>Phone:</strong> +1 (555) 123-4567</p>
+                    <p className="text-gray-900 dark:text-white mb-2"><strong>Address:</strong> AP. sinnar nashik Maharashtra India</p>
+                    <p className="text-gray-900 dark:text-white"><strong>Phone:</strong> +91 88304-38869</p>
                   </div>
                 </section>
               </div>

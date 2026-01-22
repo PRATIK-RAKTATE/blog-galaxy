@@ -234,7 +234,7 @@ export function TermsOfService({ theme, toggleTheme, setCurrentPage }) {
                       If you have any questions about these Terms, please contact us:
                     </p>
                     <p className="text-gray-900 dark:text-white mb-2"><strong>Email:</strong> legal@BlogGalaxy.ai</p>
-                    <p className="text-gray-900 dark:text-white"><strong>Address:</strong> 123 Innovation Drive, San Francisco, CA 94105</p>
+                    <p className="text-gray-900 dark:text-white"><strong>Address:</strong> AP. sinnar nashik Maharashtra India</p>
                   </div>
                 </section>
               </div>
