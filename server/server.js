@@ -8,6 +8,7 @@ import authRoutes from './routes/auth.route.js';
 import userRoutes from './routes/user.route.js';
 import healthRoutes from './health/health.routes.js';
 import metricsRoutes from './metrics/metrics.routes.js';
+import aiRoutes from './routes/ai.route.js'
 
 import transporter, { verifySMTP } from "../server/config/nodemaler.js";
 
@@ -42,6 +43,7 @@ app.use('/', healthRoutes);
 app.use('/metrics', metricsRoutes);
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/user', userRoutes);
+app.use('/api/v1/ai', aiRoutes)
 
 
 // --- Start ---
