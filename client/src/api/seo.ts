@@ -50,7 +50,7 @@ export type SeoAnalysisResponse = {
 };
 
 const API_BASE =
-  import.meta.env.VITE_API_BASE_URL?.replace(/\/+$/, "") || "http://localhost:5000";
+  import.meta.env.VITE_API_BASE_URL?.replace(/\/+$/, "") || "https://blog-galaxy.onrender.com/";
 
 export async function analyzeSeo(input: string): Promise<NonNullable<SeoAnalysisResponse["data"]>> {
   const res = await fetch(`${API_BASE}/api/v1/seo/analyze`, {

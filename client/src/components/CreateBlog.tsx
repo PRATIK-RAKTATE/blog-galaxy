@@ -48,7 +48,7 @@ type CreateBlogProps = PageCommonProps & { apiUrl?: string };
 export function CreateBlog({
   theme,
   toggleTheme,
-  apiUrl = "http://localhost:5000/api/v1/seo/create",
+  apiUrl = "https://blog-galaxy.onrender.com/api/v1/seo/create",
 }: CreateBlogProps) {
   const [topic, setTopic] = useState("");
   const [loading, setLoading] = useState(false);
