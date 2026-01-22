@@ -70,14 +70,14 @@ export function FAQ() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.05 }}
-              className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden"
+              className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700  overflow-hidden"
             >
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors"
+                className="w-full px-6 py-5 flex items-center justify-between text-left  transition-colors"
                 aria-expanded={openIndex === index}
               >
-                <span className="font-semibold text-gray-900 dark:text-white pr-8">
+                <span className="font-semibold text-gray-900  dark:text-white pr-8">
                   {faq.question}
                 </span>
                 <div className="flex-shrink-0 w-6 h-6 flex items-center justify-center">
