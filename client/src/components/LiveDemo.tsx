@@ -1,20 +1,37 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { ImageWithFallback } from './figma/ImageWithFallback';
-import { ContentLoader } from './ContentLoader';
+import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { ContentLoader } from "./ContentLoader";
+import { generateAI } from "../api/ai"; // ✅ adjust path if different
 
 export function LiveDemo() {
+  const [topic, setTopic] = useState("Benefits of Remote Work for Productivity");
   const [isGenerating, setIsGenerating] = useState(false);
   const [showResult, setShowResult] = useState(false);
 
-  const handleGenerate = () => {
+  const [output, setOutput] = useState<string>("");
+  const [error, setError] = useState<string>("");
+
+  const handleGenerate = async () => {
+    // reset UI states
+    setError("");
+    setOutput("");
     setIsGenerating(true);
     setShowResult(false);
-    
-    setTimeout(() => {
-      setIsGenerating(false);
+
+    try {
+      // ✅ send a prompt to backend
+      const prompt = `Write an engaging blog intro (120-180 words) on the topic: "${topic}".`;
+
+      const text = await generateAI(prompt);
+
+      setOutput(text);
       setShowResult(true);
-    }, 5000);
+    } catch (e: any) {
+      setError(e?.message || "Failed to generate content");
+      setShowResult(false);
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   return (
@@ -31,7 +48,7 @@ export function LiveDemo() {
             See It In Action
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Watch how BlogGalaxy AI transforms a simple topic into a complete article.
+            Watch how BlogGalaxy AI transforms a simple topic into content.
           </p>
         </motion.div>
 
@@ -43,7 +60,7 @@ export function LiveDemo() {
           className="max-w-5xl mx-auto"
         >
           <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden border border-gray-200 dark:border-gray-700">
-            {/* Demo Header */}
+            {/* Header */}
             <div className="bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 p-4">
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 bg-red-500 rounded-full" />
@@ -52,26 +69,37 @@ export function LiveDemo() {
               </div>
             </div>
 
-            {/* Demo Content */}
+            {/* Content */}
             <div className="p-8">
               <div className="mb-6">
                 <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                   Enter Your Topic
                 </label>
+
                 <div className="flex gap-3">
                   <input
                     type="text"
-                    defaultValue="Benefits of Remote Work for Productivity"
+                    value={topic}
+                    onChange={(e) => setTopic(e.target.value)}
                     className="flex-1 px-4 py-3 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="e.g. Benefits of Remote Work"
                   />
+
                   <button
                     onClick={handleGenerate}
-                    disabled={isGenerating}
+                    disabled={isGenerating || !topic.trim()}
                     className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-semibold hover:shadow-lg disabled:opacity-50 transition-all duration-200"
                   >
-                    {isGenerating ? 'Generating...' : 'Generate'}
+                    {isGenerating ? "Generating..." : "Generate"}
                   </button>
                 </div>
+
+                {/* Error */}
+                {error && (
+                  <p className="mt-3 text-sm text-red-600 dark:text-red-400">
+                    {error}
+                  </p>
+                )}
               </div>
 
               <AnimatePresence mode="wait">
@@ -96,20 +124,20 @@ export function LiveDemo() {
                   >
                     <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
                       <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                        Benefits of Remote Work for Productivity
+                        {topic.trim()}
                       </h3>
-                      <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                        Remote work has revolutionized the modern workplace, offering unprecedented flexibility and opportunities for enhanced productivity. In this comprehensive guide, we'll explore how working from home can boost your efficiency and work-life balance...
+
+                      <p className="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">
+                        {output}
                       </p>
-                      <div className="flex items-center gap-4 text-sm">
+
+                      {/* Optional fake badges (keep for UI) */}
+                      <div className="flex flex-wrap items-center gap-3 text-sm mt-4">
                         <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-full">
-                          SEO Score: 92/100
+                          Generated
                         </span>
                         <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-full">
-                          1,250 words
-                        </span>
-                        <span className="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 rounded-full">
-                          5 min read
+                          {Math.max(60, Math.min(1800, output.length))} chars
                         </span>
                       </div>
                     </div>
