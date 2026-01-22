@@ -59,7 +59,7 @@ export function Header({ theme, toggleTheme }: HeaderProps): JSX.Element {
           </button>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-8 dark:text-white">
             <NavLink to="/" end className="nav-link">
               Home
             </NavLink>
