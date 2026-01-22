@@ -23,23 +23,24 @@ const stats = [
 
 const team = [
   {
-    name: 'Sarah Chen',
+    name: 'Mr. Sahane S. Shubham',
     role: 'CEO & Co-Founder',
     linkedin: '#',
   },
   {
-    name: 'Michael Rodriguez',
+    name: 'Mr. Sanket S. khemnar',
     role: 'CTO & Co-Founder',
     linkedin: '#',
   },
+  
   {
-    name: 'Emily Watson',
-    role: 'Head of Product',
+    name: 'Mr. Ganesh S. Wakchaure',
+    role: 'Head of Engineering',
     linkedin: '#',
   },
   {
-    name: 'Alex Johnson',
-    role: 'Head of Engineering',
+    name: 'Mr. Pratik B. Raktate',
+    role: 'Head of Department',
     linkedin: '#',
   },
 ];

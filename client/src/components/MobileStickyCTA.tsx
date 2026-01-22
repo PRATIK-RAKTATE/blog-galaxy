@@ -1,19 +1,34 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion'; // Changed to framer-motion as it's the standard package
 import { X } from 'lucide-react';
+import { useNavigate } from "react-router-dom";
 
 export function MobileStickyCTA() {
   const [isVisible, setIsVisible] = useState(false);
+  const [isDismissed, setIsDismissed] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
-      // Show CTA after scrolling 300px
-      setIsVisible(window.scrollY > 300);
+      // Show CTA after scrolling 300px, but only if not dismissed
+      if (!isDismissed) {
+        setIsVisible(window.scrollY > 300);
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isDismissed]);
+
+  const handleRegisterClick = () => {
+    navigate("/register");
+  };
+
+  const handleClose = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsDismissed(true);
+    setIsVisible(false);
+  };
 
   return (
     <AnimatePresence>
@@ -27,11 +42,15 @@ export function MobileStickyCTA() {
         >
           <div className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 shadow-2xl p-4">
             <div className="flex items-center gap-3">
-              <button className="flex-1 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-semibold shadow-lg">
+              <button 
+                onClick={handleRegisterClick}
+                className="flex-1 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-semibold shadow-lg hover:opacity-90 active:scale-[0.98] transition-all"
+              >
                 Start Free Trial
               </button>
+              
               <button
-                onClick={() => setIsVisible(false)}
+                onClick={handleClose}
                 className="p-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
                 aria-label="Close"
               >

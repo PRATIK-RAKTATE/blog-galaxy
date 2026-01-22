@@ -98,7 +98,7 @@ export function ContactUs({ theme, toggleTheme, setCurrentPage }) {
                 icon: Phone,
                 title: 'Sales Inquiry',
                 description: 'Speak with our team',
-                contact: '+1 (555) 123-4567',
+                contact: '+91 88304-38869',
                 color: 'from-orange-500 to-red-500',
               },
             ].map((option, index) => (
@@ -279,9 +279,9 @@ export function ContactUs({ theme, toggleTheme, setCurrentPage }) {
                   <div>
                     <h3 className="font-bold text-gray-900 dark:text-white mb-1">Office Location</h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400">
-                      123 Innovation Drive<br />
-                      San Francisco, CA 94105<br />
-                      United States
+                      AP sinnar<br />
+                      Nashik, CA 94105<br />
+                      Maharashtra India
                     </p>
                   </div>
                 </div>
