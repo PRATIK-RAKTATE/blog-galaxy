@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight, Star, Quote } from 'lucide-react';
 
 const testimonials = [
   {
-    name: 'Sarah Johnson',
+    name: 'ganesh wakchoure',
     role: 'Content Marketing Director',
     company: 'TechFlow Inc.',
     image: 'https://images.unsplash.com/photo-1739298061740-5ed03045b280?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=150&h=150',
@@ -12,7 +12,7 @@ const testimonials = [
     rating: 5,
   },
   {
-    name: 'Michael Chen',
+    name: 'Patil Om',
     role: 'Founder & CEO',
     company: 'StartupHub',
     image: 'https://images.unsplash.com/photo-1739298061740-5ed03045b280?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=150&h=150',
@@ -20,7 +20,7 @@ const testimonials = [
     rating: 5,
   },
   {
-    name: 'Emily Rodriguez',
+    name: 'Sahane shubham',
     role: 'SEO Agency Owner',
     company: 'RankBoost Agency',
     image: 'https://images.unsplash.com/photo-1739298061740-5ed03045b280?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=150&h=150',

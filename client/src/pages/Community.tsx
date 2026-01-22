@@ -96,11 +96,11 @@ const resources = [
 ];
 
 const topContributors = [
-  { name: 'Sarah Chen', points: 12500, badge: 'Expert', posts: 450 },
-  { name: 'Michael Rodriguez', points: 11200, badge: 'Pro', posts: 389 },
-  { name: 'Emily Watson', points: 10800, badge: 'Expert', posts: 367 },
-  { name: 'Alex Johnson', points: 9500, badge: 'Pro', posts: 325 },
-  { name: 'Lisa Anderson', points: 8900, badge: 'Active', posts: 298 },
+  { name: 'Ganesh Wakchaure', points: 12500, badge: 'Expert', posts: 450 },
+  { name: 'Sanket khemnar', points: 11200, badge: 'Pro', posts: 389 },
+  { name: 'shubham sahane', points: 10800, badge: 'Expert', posts: 367 },
+  { name: 'Patil Om', points: 9500, badge: 'Pro', posts: 325 },
+  { name: 'ganesh gaikwad', points: 8900, badge: 'Active', posts: 298 },
 ];
 
 export function Community({ theme, toggleTheme, setCurrentPage }) {
