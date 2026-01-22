@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Eye, EyeOff, ArrowLeft, Home } from "lucide-react";
+import { Eye, EyeOff, ArrowLeft } from "lucide-react";
+import { loginUser } from "../api/auth";
 
 type LoginFormState = {
   email: string;
@@ -10,11 +11,7 @@ type LoginFormState = {
 export function LoginPage(): JSX.Element {
   const navigate = useNavigate();
 
-  const [form, setForm] = useState<LoginFormState>({
-    email: "",
-    password: "",
-  });
-
+  const [form, setForm] = useState<LoginFormState>({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -28,17 +25,31 @@ export function LoginPage(): JSX.Element {
     e.preventDefault();
     setError(null);
 
-    if (!form.email || !form.password) {
-      setError("Email and password are required");
+    if (!form.email.trim() || !form.password) {
+      setError("Email and password are required.");
       return;
     }
 
+    setIsSubmitting(true);
     try {
-      setIsSubmitting(true);
-      await new Promise((res) => setTimeout(res, 1200));
-      navigate("/");
-    } catch (err) {
-      setError("Invalid credentials");
+      // ✅ Cookie-based auth: success is proof (cookie is set by server)
+      await loginUser({
+        email: form.email,
+        password: form.password,
+      });
+
+      // ✅ navigate only on success
+      navigate("/", { replace: true });
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error
+          ? err.message
+          : typeof err === "string"
+          ? err
+          : "Login failed. Please try again.";
+
+      console.error("LOGIN_FAILURE_DETAIL:", err);
+      setError(message);
     } finally {
       setIsSubmitting(false);
     }
@@ -46,16 +57,15 @@ export function LoginPage(): JSX.Element {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950 px-4">
-
-      <div className="w-1/2 max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-8">
-      {/* Go to Home Button */}
-        <Link 
-          to="/" 
-          className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors mb-6 group"
+      <div className="w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-8">
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white mb-6 group"
         >
-          <ArrowLeft size={16} className="pl-[20px] group-hover:-translate-x-1 transition-transform" />
+          <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
           <span>Go to Home</span>
         </Link>
+
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white text-center">
           Welcome Back
         </h1>
@@ -64,7 +74,6 @@ export function LoginPage(): JSX.Element {
         </p>
 
         <form onSubmit={handleSubmit} className="mt-8">
-          {/* Email Field */}
           <div className="mb-5">
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Email
@@ -72,15 +81,16 @@ export function LoginPage(): JSX.Element {
             <input
               type="email"
               name="email"
+              required
               value={form.email}
               onChange={handleChange}
               placeholder="you@example.com"
+              autoComplete="email"
               className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-transparent px-4 py-2 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
-          {/* Password Field */}
-          <div className="mb-8"> {/* Added significant margin-bottom here for Y-axis space */}
+          <div className="mb-8">
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Password
             </label>
@@ -88,27 +98,30 @@ export function LoginPage(): JSX.Element {
               <input
                 type={showPassword ? "text" : "password"}
                 name="password"
+                required
                 value={form.password}
                 onChange={handleChange}
                 placeholder="••••••••"
+                autoComplete="current-password"
                 className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-transparent px-4 py-2 pr-10 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword((v) => !v)}
-                className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+                className="absolute inset-y-0 right-3 flex items-center text-gray-500"
+                aria-label={showPassword ? "Hide password" : "Show password"}
               >
                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
           </div>
 
-          {/* Error Message */}
           {error && (
-            <p className="text-sm text-red-500 text-center mb-4">{error}</p>
+            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 text-sm p-3 rounded-lg text-center mb-4">
+              {error}
+            </div>
           )}
 
-          {/* Submit Button */}
           <button
             type="submit"
             disabled={isSubmitting}
@@ -118,7 +131,6 @@ export function LoginPage(): JSX.Element {
           </button>
         </form>
 
-        {/* Footer */}
         <div className="mt-8 text-center text-sm text-gray-600 dark:text-gray-400">
           Don’t have an account?{" "}
           <Link
