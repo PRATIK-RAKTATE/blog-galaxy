@@ -57,7 +57,7 @@ export function LoginPage(): JSX.Element {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950 px-4">
-      <div className="w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-8">
+      <div className="w-1/2 max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-8">
         <Link
           to="/"
           className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white mb-6 group"

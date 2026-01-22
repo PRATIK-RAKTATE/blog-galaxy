@@ -67,7 +67,7 @@ export function RegisterPage(): JSX.Element {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950 px-4 py-12">
-      <div className="w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-8 relative">
+      <div className="w-1/2 max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-8 relative">
         
         <Link 
           to="/" 
@@ -96,7 +96,7 @@ export function RegisterPage(): JSX.Element {
               required
               value={form.name}
               onChange={handleChange}
-              placeholder="John Doe"
+              placeholder="Username"
               className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-transparent px-4 py-2 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
