@@ -78,7 +78,7 @@ export default function App(): JSX.Element {
         <Route path="/register" element={<RegisterPage />} /> 
         <Route path="/documentation" element={<DocumentationPage/> }/>
         <Route path="/careers" element={<CareersPage/> }/>
-        <Route path="/create" element={<CreateBlog/> }/>
+        <Route path="/create" element={<CreateBlog {...commonProps} />}/>
 
         {/* 404 */}
         <Route path="*" element={<Navigate to="/" replace />} />

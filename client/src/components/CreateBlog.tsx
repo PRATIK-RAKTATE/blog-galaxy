@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import type { PageCommonProps } from "../App";
+import { Header } from "./Header";
 
 type TextValue = string | { text?: string } | null | undefined;
 
@@ -49,7 +50,8 @@ export function CreateBlog({
   theme,
   toggleTheme,
   apiUrl = "https://blog-galaxy.onrender.com/api/v1/seo/create",
-}: CreateBlogProps) {
+}: CreateBlogProps ) {
+
   const [topic, setTopic] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -125,17 +127,13 @@ export function CreateBlog({
     typeof responseObj?.output === "string" ? (responseObj?.output as string) : null;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-black">
-      {/* Gradient background decor */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-24 left-1/2 h-72 w-[42rem] -translate-x-1/2 rounded-full bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 blur-3xl" />
-        <div className="absolute top-48 left-10 h-56 w-56 rounded-full bg-gradient-to-br from-cyan-500/15 to-blue-500/10 blur-2xl" />
-        <div className="absolute top-80 right-10 h-56 w-56 rounded-full bg-gradient-to-br from-purple-500/15 to-pink-500/10 blur-2xl" />
-      </div>
-
-      <div className="relative mx-auto max-w-5xl px-4 pt-14 pb-10">
+    <>
+    <Header theme={theme} toggleTheme={toggleTheme} />
+    <div className="min-h-screen dark:bg-black flex justify-center items-center ">
+      
+      <div className="relative mx-auto max-w-5xl px-4 pt-14 pb-10 ">
         {/* Top spacing + header card */}
-        <div className="mb-8 rounded-3xl border border-gray-200/70 dark:border-gray-800/70 bg-white/70 dark:bg-zinc-950/60 backdrop-blur shadow-sm">
+        <div className="mb-8 rounded-3xl border border-gray-200/70 dark:border-gray-800/70  dark:bg-zinc-950/60 isolate  shadow-sm bg-blue-50">
           <div className="p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div className="space-y-2">
               <h1 className="text-2xl md:text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
@@ -146,45 +144,36 @@ export function CreateBlog({
               </p>
             </div>
 
-            <button
-              type="button"
-              onClick={toggleTheme}
-              className="inline-flex items-center justify-center rounded-2xl border border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-zinc-950/80 px-4 py-2 text-sm font-medium text-gray-800 dark:text-gray-200 shadow-sm hover:shadow transition"
-            >
-              Theme: {theme}
-            </button>
           </div>
         </div>
 
         {/* Input Card */}
-        <div className="rounded-3xl border border-gray-200/70 dark:border-gray-800/70 bg-white/70 dark:bg-zinc-950/60 backdrop-blur shadow-sm p-5 md:p-7 mb-8">
-          <label className="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-3">
+        <div className="rounded-3xl border border-gray-200/70 dark:border-gray-800/70 bg-red-600 dark:bg-zinc-950/60  shadow-sm  md:p-7 mb-8">
+          <label className="block text-sm font-medium text-gray-800 dark:text-white mb-3 pt-4 ml-4">
             Topic / Prompt
           </label>
 
-          <div className="flex flex-col md:flex-row gap-3">
+          <div className="flex flex-col md:flex-row gap-3 px-4">
             <div className="relative flex-1">
-              <div className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-gray-400">
-                <span className="text-sm">✦</span>
+              <div className=" flex items-center text-gray-400 w-full relative">
+
+                <input
+                  value={topic}
+                  onChange={(e) => setTopic(e.target.value)}
+                  onKeyDown={onKeyDown}
+                  placeholder='e.g. "AI blog writing tools for 2026"'
+                  className="w-full rounded-2xl border border-gray-300/80 dark:border-gray-700/80 bg-white/90 dark:bg-black/70 px-6  py-3 text-sm text-gray-900 dark:text-gray-100 focus:border-transparent shadow-sm"
+                />
+                <span className="text-sm absolute left-0 p-2 ">✦</span>
               </div>
-              <input
-                value={topic}
-                onChange={(e) => setTopic(e.target.value)}
-                onKeyDown={onKeyDown}
-                placeholder='e.g. "AI blog writing tools for 2026"'
-                className="w-full rounded-2xl border border-gray-300/80 dark:border-gray-700/80 bg-white/90 dark:bg-black/70 pl-9 pr-4 py-3 text-sm text-gray-900 dark:text-gray-100 outline-none focus:ring-2 focus:ring-blue-500/70 focus:border-transparent shadow-sm"
-              />
-              <p className="mt-2 text-xs text-gray-500 dark:text-gray-500">
+              <p className="mt-2 md:text-2xs  text-gray-500 dark:text-gray-500 mb-4 ">
                 Tip: keep prompts specific (audience, tone, length).
               </p>
             </div>
 
             <button
-              type="button"
-              onClick={handleGenerate}
-              disabled={loading}
-              className="relative rounded-2xl px-7 py-3 text-sm font-semibold text-white shadow-sm transition disabled:opacity-60 disabled:cursor-not-allowed min-w-[150px]
-                bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700"
+              className="
+                 relative rounded-2xl px-7 py-3 text-md font-semibold text-black bg-gradient-to-r from-indigo-600 to-pink-600 mb-4 h-full px-2 md:py-4 flex justify-center bg-blue-500  md:h-4 "
             >
               {loading ? "Generating..." : "Send"}
               {!loading && (
@@ -203,7 +192,7 @@ export function CreateBlog({
         </div>
 
         {/* Preview Card */}
-        <div className="rounded-3xl border border-gray-200/70 dark:border-gray-800/70 bg-white/70 dark:bg-zinc-950/60 backdrop-blur shadow-sm overflow-hidden">
+        <div className="rounded-3xl border border-gray-200/70 dark:border-gray-800/70 dark:bg-zinc-950/60 shadow-sm overflow-hidden bg-gray-100">
           <div className="border-b border-gray-200/70 dark:border-gray-800/70 px-6 py-4 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="inline-flex h-2.5 w-2.5 rounded-full bg-gradient-to-r from-blue-500 to-purple-600" />
@@ -278,5 +267,6 @@ export function CreateBlog({
         </div>
       </div>
     </div>
+    </>
   );
 }

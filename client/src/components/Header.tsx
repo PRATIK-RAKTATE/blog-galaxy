@@ -69,15 +69,13 @@ export function Header({ theme, toggleTheme }: HeaderProps): JSX.Element {
             <NavLink to="/explore" className="nav-link">
               Explore
             </NavLink>
+            <NavLink to="/create" className="nav-link">
+              Create
+            </NavLink>
             <NavLink to="/community" className="nav-link">
               Community
             </NavLink>
-            <button
-              onClick={() => scrollToSection("pricing")}
-              className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
-            >
-              Pricing
-            </button>
+            
           </nav>
 
           {/* Desktop Actions */}
