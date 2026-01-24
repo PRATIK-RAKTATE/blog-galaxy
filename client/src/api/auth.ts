@@ -6,7 +6,7 @@ type LoginCredentials = { email: string; password: string };
 export type LoginResponse = { token: string; message?: string };
 
 export async function loginUser(credentials: LoginCredentials): Promise<LoginResponse> {
-  const res = await fetch(`${API_URL}/auth/login`, {
+  const res = await fetch(`${API_URL}/api/v1/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(credentials),
@@ -41,7 +41,7 @@ export async function loginUser(credentials: LoginCredentials): Promise<LoginRes
 export type RegisterCredentials = { name: string; email: string; password: string };
 
 export async function registerUser(credentials: RegisterCredentials): Promise<LoginResponse> {
-  const res = await fetch(`${API_URL}/register`, {
+  const res = await fetch(`${API_URL}/api/v1/register`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(credentials),
