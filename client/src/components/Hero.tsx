@@ -120,7 +120,7 @@ export function Hero() {
                   </div>
                   <div>
                     <div className="text-sm font-semibold text-gray-900 dark:text-white">Article Generated</div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">SEO Score: 95/100</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400">SEO Score: 98/100</div>
                   </div>
                 </div>
               </motion.div>
