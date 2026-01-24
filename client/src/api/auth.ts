@@ -41,7 +41,7 @@ export async function loginUser(credentials: LoginCredentials): Promise<LoginRes
 export type RegisterCredentials = { name: string; email: string; password: string };
 
 export async function registerUser(credentials: RegisterCredentials): Promise<LoginResponse> {
-  const res = await fetch(`${API_URL}/api/v1/register`, {
+  const res = await fetch(`${API_URL}/api/v1/auth/register`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(credentials),
