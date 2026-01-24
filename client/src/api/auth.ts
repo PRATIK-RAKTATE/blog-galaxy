@@ -6,7 +6,7 @@ type LoginCredentials = { email: string; password: string };
 export type LoginResponse = { token: string; message?: string };
 
 export async function loginUser(credentials: LoginCredentials): Promise<LoginResponse> {
-  const res = await fetch(`${API_URL}/login`, {
+  const res = await fetch(`${API_URL}/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(credentials),
