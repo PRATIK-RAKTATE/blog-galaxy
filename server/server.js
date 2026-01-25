@@ -11,7 +11,6 @@ import metricsRoutes from './metrics/metrics.routes.js';
 import aiRoutes from './routes/ai.route.js'
 import seoRoutes from './routes/seo.route.js';
 import brightDataRoutes from './routes/brightData.route.js'
-import transporter, { verifySMTP } from "../server/config/nodemaler.js";
 
 
 const app = express();
@@ -22,6 +21,7 @@ connectDB();
 // --- CORS ---
 const allowedOrigins = [
   'https://blog-galaxy.netlify.app',
+  'https://blog-galaxy-stagging.netlify.app',
   'http://localhost:3000',
   'http://locahost:5173'
 ];
