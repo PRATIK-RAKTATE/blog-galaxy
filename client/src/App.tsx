@@ -18,6 +18,7 @@ import { CareersPage } from "./components/footer/Careers.jsx"
 import { SecurityPage } from './components/footer/Security'
 import { CreateBlog } from './components/CreateBlog.tsx'
 import SeoTest  from './pages/SeoData.jsx';
+import { WakeUpService } from "./pages/WakeupService.tsx";
 
 
 type Theme = "light" | "dark";
@@ -64,7 +65,9 @@ export default function App(): JSX.Element {
   if (isLoading) return <LoadingScreen theme={theme} />;
 
   return (
-    <Routes>
+    <>
+      <WakeUpService />
+      <Routes>
       {/* Layout wrapper (keeps theme wrapper stable) */}
       <Route element={<AppLayout theme={theme} toggleTheme={toggleTheme} />}>
         <Route path="/" element={<LandingPage {...commonProps} />} />
@@ -87,5 +90,6 @@ export default function App(): JSX.Element {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>
+    </>
   );
 }
