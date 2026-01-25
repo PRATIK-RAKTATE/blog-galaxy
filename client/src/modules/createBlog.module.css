@@ -21,9 +21,14 @@
 }
 
 .input-field {
-  margin-left: 50px;
+  margin-left: 20px;
 }
 
 .topic {
-  margin-left: 50px;
+  margin-left: 10px;
+}
+
+.result-div {
+  height: 400px;
+  
 }

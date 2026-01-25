@@ -174,9 +174,6 @@ export function CreateBlog({
               className="
     not-prose isolate
     rounded-3xl
-    border border-gray-200/70 dark:border-gray-800/70
-    bg-white/70 dark:bg-zinc-950/60
-    backdrop-blur shadow-sm
     p-5 md:p-7 mb-8
     text-gray-900 dark:text-gray-100
     leading-normal
@@ -194,7 +191,7 @@ export function CreateBlog({
                   <div className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-gray-400">
                     <br />
                     <br />
-                    <span className="text-sm">&nbsp; ✦</span>
+                    <span className="text-sm">&nbsp; </span>
                   </div>
                   <input
                     value={topic}
@@ -295,9 +292,9 @@ export function CreateBlog({
                     {blog.h3_3 && <h3>{blog.h3_3}</h3>}
                   </article>
                 ) : outputIsString ? (
-                  <pre className="whitespace-pre-wrap break-words text-sm text-gray-800 dark:text-gray-200 rounded-2xl border border-gray-200/70 dark:border-gray-800/70 bg-white/60 dark:bg-black/30 p-5">
+                  <div className={`${style['result-div']} whitespace-pre-wrap break-words text-sm text-gray-800 dark:text-gray-200 rounded-2xl border border-gray-200/70 dark:border-gray-800/70 bg-white/60 dark:bg-black/30 p-5`}>
                     {outputIsString}
-                  </pre>
+                  </div>
                 ) : (
                   <pre className="whitespace-pre-wrap break-words text-sm text-gray-800 dark:text-gray-200 rounded-2xl border border-gray-200/70 dark:border-gray-800/70 bg-white/60 dark:bg-black/30 p-5">
                     {JSON.stringify(responseObj ?? rawText, null, 2)}
