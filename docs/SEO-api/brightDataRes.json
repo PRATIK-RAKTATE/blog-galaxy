@@ -1,0 +1,10 @@
+{
+  success: bool,
+  source: string,
+  raw_html: {
+    general: {...},
+    organic: [array of results],
+    images: [array of images],
+    pagination: {...}
+  }
+}

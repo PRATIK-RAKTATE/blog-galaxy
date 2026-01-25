@@ -17,6 +17,8 @@ import { DocumentationPage } from "./components/footer/Documentation";
 import { CareersPage } from "./components/footer/Careers.jsx"
 import { SecurityPage } from './components/footer/Security'
 import { CreateBlog } from './components/CreateBlog.tsx'
+import SeoTest  from './pages/SeoData.jsx';
+import SeoAnalyzer from './components/SeoAnalyzer'; // Add this import
 
 
 type Theme = "light" | "dark";
@@ -79,6 +81,9 @@ export default function App(): JSX.Element {
         <Route path="/documentation" element={<DocumentationPage/> }/>
         <Route path="/careers" element={<CareersPage/> }/>
         <Route path="/create" element={<CreateBlog/> }/>
+        <Route path="/seo-test" element={<SeoTest/> }/>
+          <Route path="/seo-analyzer" element={<SeoAnalyzer {...commonProps} />} /> {/* Add this route */}
+        
 
         {/* 404 */}
         <Route path="*" element={<Navigate to="/" replace />} />

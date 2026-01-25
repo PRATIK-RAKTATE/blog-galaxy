@@ -11,7 +11,6 @@ import metricsRoutes from './metrics/metrics.routes.js';
 import aiRoutes from './routes/ai.route.js'
 import seoRoutes from './routes/seo.route.js';
 import brightDataRoutes from './routes/brightData.route.js'
-
 import transporter, { verifySMTP } from "../server/config/nodemaler.js";
 
 
