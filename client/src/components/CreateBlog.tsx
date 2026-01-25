@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import type { PageCommonProps } from "../App";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
+import style from '../modules/createBlog.module.css';
 
 type TextValue = string | { text?: string } | null | undefined;
 
@@ -126,11 +127,14 @@ export function CreateBlog({
   const outputIsString =
     typeof responseObj?.output === "string" ? (responseObj?.output as string) : null;
 
+    // theme
+    
   return (
     <>
-      <div className="create-blog-scope">
+      <div className={style["all-unset"]}>
+        <div className="create-blog-scope">
 
-        <Header />
+      <Header />
         <br />
         <br />
         <br /><br />
@@ -179,22 +183,25 @@ export function CreateBlog({
     font-sans
   "
             >
-              <label className="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-3">
-                Topic / Prompt
+              <label className={`${style['topic']} block text-sm font-medium text-gray-800 dark:text-gray-200 mb-3`}>
+                <br />
+                &nbsp; &nbsp; Topic / Prompt
               </label>
 
 
               <div className="flex flex-col md:flex-row gap-3">
-                <div className="relative flex-1">
+                <div className={`${style['input-field']} relative flex-1`}>
                   <div className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-gray-400">
-                    <span className="text-sm">✦</span>
+                    <br />
+                    <br />
+                    <span className="text-sm">&nbsp; ✦</span>
                   </div>
                   <input
                     value={topic}
                     onChange={(e) => setTopic(e.target.value)}
                     onKeyDown={onKeyDown}
-                    placeholder='e.g. "AI blog writing tools for 2026"'
-                    className="w-full rounded-2xl border border-gray-300/80 dark:border-gray-700/80 bg-white/90 dark:bg-black/70 pl-9 pr-4 py-3 text-sm text-gray-900 dark:text-gray-100 outline-none focus:ring-2 focus:ring-blue-500/70 focus:border-transparent shadow-sm"
+                    placeholder='&nbsp; &nbsp; &nbsp; &nbsp; e.g. "AI blog writing tools for 2026"'
+                    className={`${style['w-new']} rounded-2xl border border-gray-300/80 dark:border-gray-700/80 bg-white/90 dark:bg-black/70 pl-9 pr-4 py-3 text-sm text-gray-900 dark:text-gray-100 outline-none focus:ring-2 focus:ring-blue-500/70 focus:border-transparent shadow-sm`}
                   />
                   <p className="mt-2 text-xs text-gray-500 dark:text-gray-500">
                     Tip: keep prompts specific (audience, tone, length).
@@ -205,8 +212,8 @@ export function CreateBlog({
                   type="button"
                   onClick={handleGenerate}
                   disabled={loading}
-                  className="relative rounded-2xl px-7 py-3 text-sm font-semibold text-white shadow-sm transition disabled:opacity-60 disabled:cursor-not-allowed min-w-[150px]
-                bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700"
+                  className={` ${style['send']} relative rounded-2xl px-7 py-3 text-sm font-semibold text-white shadow-sm transition disabled:opacity-60 disabled:cursor-not-allowed min-w-[150px]
+                bg-black hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700`}
                 >
                   {loading ? "Generating..." : "Send"}
                   {!loading && (
@@ -302,6 +309,7 @@ export function CreateBlog({
         </div>
         <Footer />
       </div>
+      </div>  
     </>
   );
 }

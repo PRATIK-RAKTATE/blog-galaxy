@@ -1,0 +1,29 @@
+/* createBlog.module.css */
+.all-unset {
+  all: unset;
+}
+
+/* .all-unset  */
+
+.w-new {
+  width: 90%;
+}
+
+.p-left {
+  padding-left: 20px;
+}
+
+.send {
+  background-color: black;
+  width: 100px;
+  margin-bottom: 30px;
+  margin-right: 50px;
+}
+
+.input-field {
+  margin-left: 50px;
+}
+
+.topic {
+  margin-left: 50px;
+}
