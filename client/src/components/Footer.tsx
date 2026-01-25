@@ -63,8 +63,8 @@ export function Footer() {
         {/* Bottom Section */}
         <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row items-center justify-between gap-4">
           <Link to="/" onClick={scrollToTop} className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">BG</span>
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-sm"><img src="../../src/assets/logo.png" alt="" /></span>
             </div>
             <span className="font-bold text-white">BlogGalaxy AI</span>
           </Link>

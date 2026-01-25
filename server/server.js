@@ -10,7 +10,7 @@ import healthRoutes from './health/health.routes.js';
 import metricsRoutes from './metrics/metrics.routes.js';
 import aiRoutes from './routes/ai.route.js'
 import seoRoutes from './routes/seo.route.js';
-
+import brightDataRoutes from './routes/brightData.route.js'
 import transporter, { verifySMTP } from "../server/config/nodemaler.js";
 
 
@@ -46,6 +46,7 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/ai', aiRoutes);
 app.use('/api/v1/seo', seoRoutes);
+app.use("/api/v1/seo", brightDataRoutes);
 
 
 // --- Start ---

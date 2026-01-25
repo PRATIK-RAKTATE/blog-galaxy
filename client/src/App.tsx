@@ -17,6 +17,7 @@ import { DocumentationPage } from "./components/footer/Documentation";
 import { CareersPage } from "./components/footer/Careers.jsx"
 import { SecurityPage } from './components/footer/Security'
 import { CreateBlog } from './components/CreateBlog.tsx'
+import SeoTest  from './pages/SeoData.jsx';
 
 
 type Theme = "light" | "dark";
@@ -79,6 +80,8 @@ export default function App(): JSX.Element {
         <Route path="/documentation" element={<DocumentationPage/> }/>
         <Route path="/careers" element={<CareersPage/> }/>
         <Route path="/create" element={<CreateBlog/> }/>
+        <Route path="/seo-test" element={<SeoTest/> }/>
+        
 
         {/* 404 */}
         <Route path="*" element={<Navigate to="/" replace />} />

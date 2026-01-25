@@ -13,7 +13,7 @@ export function LoadingScreen({ theme }) {
             className="relative"
           >
             <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center">
-              <span className="text-white font-bold text-3xl">BG</span>
+              <span className="text-white font-bold text-3xl"><img src="../../src/assets/logo.png" alt="" /></span>
             </div>
             
             {/* Gradient Spinner */}

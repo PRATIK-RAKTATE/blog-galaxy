@@ -50,8 +50,8 @@ export function Header({ theme, toggleTheme }: HeaderProps): JSX.Element {
             onClick={() => navigateTo("/")}
             className="flex items-center gap-2"
           >
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">BG</span>
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center">
+              <span className=""><img src="../../src/assets/logo.png" alt="" /></span>
             </div>
             <span className="font-bold text-xl text-gray-900 dark:text-white">
               BlogGalaxy AI
