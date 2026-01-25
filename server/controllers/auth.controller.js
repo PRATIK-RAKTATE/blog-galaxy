@@ -52,6 +52,7 @@ export const register = async (req, res) => {
       message: "User registered successfully",
     });
 
+    /*
     // Send email asynchronously (fire-and-forget)
     const mailOptions = {
       from: process.env.SENDER_EMAIL,
@@ -63,7 +64,7 @@ export const register = async (req, res) => {
     transporter
       .sendMail(mailOptions)
       .then(() => console.log("Welcome email sent"))
-      .catch((err) => console.error("Email failed:", err));
+      .catch((err) => console.error("Email failed:", err)); */
   } catch (err) {
     console.error("Register error:", err);
     res.json({
@@ -144,6 +145,8 @@ export const logout = async (req, res) => {
     }
 }
 
+
+
 // send verification token to the user
 export const sendVerifyOtp = async (req, res) => {
     try {
@@ -165,7 +168,7 @@ export const sendVerifyOtp = async (req, res) => {
 
         await user.save();
 
-        const mailOptions = {
+        /* const mailOptions = {
             from: process.env.SENDER_EMAIL,
             to: user.email,
             subject: 'Account Verification OTP',
@@ -177,7 +180,7 @@ export const sendVerifyOtp = async (req, res) => {
         res.json({
             success: true,
             message: "Verification OTP sent successfully on email"
-        })
+        }) */
 
     } catch (err) {
         res.json ({
@@ -186,7 +189,7 @@ export const sendVerifyOtp = async (req, res) => {
         });
     }
 }
-
+/*
 export const verifyEmail = async (req, res) => {
     const {userId, otp} = req.body;
     
@@ -360,3 +363,4 @@ export const resetPassword = async (req, res) => {
         })
     }
 }
+*/
