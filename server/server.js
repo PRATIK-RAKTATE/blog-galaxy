@@ -22,6 +22,7 @@ connectDB();
 // --- CORS ---
 const allowedOrigins = [
   'https://blog-galaxy.netlify.app',
+  'https://blog-galaxy-stagging.netlify.app',
   'http://localhost:3000',
   'http://locahost:5173'
 ];
