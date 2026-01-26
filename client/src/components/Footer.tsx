@@ -1,12 +1,12 @@
 import { Twitter, Linkedin, Github, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-import { DocumentationPage } from './footer/Documentation';
+// 1. IMPORT the logo here just like we did in the Header
+import logo from '../../src/assets/logo.png'; 
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
-  // Helper to scroll to top when a link is clicked to prevent landing at the bottom of the new page
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -22,7 +22,8 @@ export function Footer() {
               <li><Link to="/" onClick={scrollToTop} className="hover:text-white transition-colors">Features</Link></li>
               <li><Link to="/" onClick={scrollToTop} className="hover:text-white transition-colors">Pricing</Link></li>
               <li><Link to="/seo-analysis" onClick={scrollToTop} className="hover:text-white transition-colors">SEO Analysis</Link></li>
-              <li><Link to="/explore" onClick={scrollToTop} className="hover:text-white transition-colors">Explore Blogs</Link></li>
+              {/* Updated to /blogs */}
+              <li><Link to="/blogs" onClick={scrollToTop} className="hover:text-white transition-colors">Latest Posts</Link></li>
             </ul>
           </div>
 
@@ -31,8 +32,9 @@ export function Footer() {
             <h3 className="font-bold text-white mb-4">Resources</h3>
             <ul className="space-y-3">
               <li><Link to="/documentation" onClick={scrollToTop} className="hover:text-white transition-colors">Documentation</Link></li>
-              <li><Link to="/explore" onClick={scrollToTop} className="hover:text-white transition-colors">Blog</Link></li>
-              <li><Link to="/explore" onClick={scrollToTop} className="hover:text-white transition-colors">Guides</Link></li>
+              {/* Updated to /blogs */}
+              <li><Link to="/blogs" onClick={scrollToTop} className="hover:text-white transition-colors">Blog</Link></li>
+              <li><Link to="/explore" onClick={scrollToTop} className="hover:text-white transition-colors">Explore</Link></li>
               <li><Link to="/community" onClick={scrollToTop} className="hover:text-white transition-colors">Community</Link></li>
             </ul>
           </div>
@@ -62,29 +64,29 @@ export function Footer() {
 
         {/* Bottom Section */}
         <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row items-center justify-between gap-4">
-          <Link to="/" onClick={scrollToTop} className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm"><img src="../../src/assets/logo.png" alt="" /></span>
+          <Link to="/" onClick={scrollToTop} className="flex items-center gap-2 group">
+            <div className="w-10 h-10 rounded-lg flex items-center justify-center overflow-hidden">
+              {/* 2. Using the imported variable here for Netlify compatibility */}
+              <img src={logo} alt="BlogGalaxy Logo" className="w-full h-full object-contain transition-transform group-hover:scale-110" />
             </div>
-            <span className="font-bold text-white">BlogGalaxy AI</span>
+            <span className="font-bold text-white text-lg">BlogGalaxy AI</span>
           </Link>
 
           <p className="text-sm text-gray-400">
             © {currentYear} BlogGalaxy AI. All rights reserved.
           </p>
 
-          <div className="flex items-center gap-4">
-            {/* External Links use <a> for proper browser behavior */}
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" aria-label="Twitter">
+          <div className="flex items-center gap-4 text-gray-400">
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-all hover:scale-110" aria-label="Twitter">
               <Twitter className="w-5 h-5" />
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" aria-label="LinkedIn">
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-all hover:scale-110" aria-label="LinkedIn">
               <Linkedin className="w-5 h-5" />
             </a>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" aria-label="GitHub">
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-all hover:scale-110" aria-label="GitHub">
               <Github className="w-5 h-5" />
             </a>
-            <a href="mailto:contact@bloggalaxy.ai" className="hover:text-white transition-colors" aria-label="Email">
+            <a href="mailto:contact@bloggalaxy.ai" className="hover:text-white transition-all hover:scale-110" aria-label="Email">
               <Mail className="w-5 h-5" />
             </a>
           </div>
