@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Header } from '../components/Header';
+import { Footer } from '../components/Footer';
 
 export const AddBlog = ({ theme }) => {
   const navigate = useNavigate();
@@ -54,7 +56,11 @@ export const AddBlog = ({ theme }) => {
   }`;
 
   return (
-    <div className={`min-h-screen py-12 px-4 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}>
+    <>
+      <Header theme={theme} />
+      <br />
+      <br />
+      <div className={`min-h-screen py-12 px-4 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}>
       <div className={`max-w-3xl mx-auto p-8 rounded-2xl shadow-xl ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
         <h2 className={`text-3xl font-bold mb-6 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
           Create New Post
@@ -121,7 +127,7 @@ export const AddBlog = ({ theme }) => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`w-full py-4 rounded-lg font-bold text-white transition-all transform hover:scale-[1.01] active:scale-[0.99] ${
+            className={`w-full py-4 rounded-lg font-bold text-black bg-gradient-to-r from-blue-500 to-purple-600 transition-all transform hover:scale-[1.01] active:scale-[0.99] ${
               isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
             }`}
           >
@@ -130,5 +136,7 @@ export const AddBlog = ({ theme }) => {
         </form>
       </div>
     </div>
+    <Footer />
+    </>
   );
 };

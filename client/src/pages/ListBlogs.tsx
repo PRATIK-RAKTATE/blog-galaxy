@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { Header } from '../components/Header.tsx';
+import { Footer } from '../components/Footer';
 
 export const BlogPage = ({ theme }) => {
   const [blogs, setBlogs] = useState([]);
@@ -41,6 +43,10 @@ export const BlogPage = ({ theme }) => {
 
   // View 1: Grid View (3 per row)
   return (
+    <>
+    <Header />
+    <br />
+    <br />
     <div className={`min-h-screen p-8 ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl font-bold mb-10 text-center">Insights & Stories</h2>
@@ -62,5 +68,8 @@ export const BlogPage = ({ theme }) => {
         </div>
       </div>
     </div>
+    <Footer />
+    </>
+    
   );
 };
