@@ -7,6 +7,7 @@ import axios from "axios";
  * - Otherwise fall back to same-origin (""), which works with Vite proxy in dev.
  */
 const BACKEND_URL = (import.meta.env.VITE_BACKEND_URL || "").replace(/\/+$/, "");
+console.log("BrightData API BACKEND_URL from brightDataseo.js :", BACKEND_URL);
 
 // Your Express route is: router.get("/google"...)
 // This file should call the mounted path.

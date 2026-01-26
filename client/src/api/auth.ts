@@ -1,6 +1,6 @@
 const API_URL = import.meta.env.VITE_BACKEND_URL || 'https://blog-galaxy.onrender.com/api/v1/auth';
 
-console.log(API_URL)
+console.log("api base from the auth.ts: ",API_URL)
 
 type LoginCredentials = { email: string; password: string };
 export type LoginResponse = { token: string; message?: string };

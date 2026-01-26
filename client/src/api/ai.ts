@@ -19,6 +19,7 @@ type GenerateAIResult = GenerateAIResponse | GenerateAIError;
 
 const API_BASE =
   import.meta.env.VITE_BACKEND_URL?.replace(/\/+$/, "") || "https://blog-galaxy.onrender.com";
+  console.log("API_BASE from ai.ts :", API_BASE);
 
 // If you added backend auth middleware that checks `x-client-key`:
 const CLIENT_KEY = import.meta.env.VITE_CLIENT_API_KEY as string | undefined;

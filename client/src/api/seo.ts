@@ -50,8 +50,9 @@ export type SeoAnalysisResponse = {
 };
 
 const API_BASE =
-  import.meta.env.VITE_API_BASE_URL?.replace(/\/+$/, "") || "https://blog-galaxy.onrender.com/";
+  import.meta.env.VITE_BACKEND_URL?.replace(/\/+$/, "") || "https://blog-galaxy.onrender.com/";
 
+console.log("API_BASE from seo.ts :", API_BASE);
 export async function analyzeSeo(input: string): Promise<NonNullable<SeoAnalysisResponse["data"]>> {
   const res = await fetch(`${API_BASE}api/v1/seo/analyze`, {
     method: "POST",

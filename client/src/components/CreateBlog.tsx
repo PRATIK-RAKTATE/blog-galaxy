@@ -48,14 +48,18 @@ function isBlogOutput(x: unknown): x is BlogOutput {
 
 type CreateBlogProps = PageCommonProps & { apiUrl?: string };
 
+const BASE_URL =
+  import.meta.env.VITE_BACKEND_URL?.replace(/\/+$/, "") || "https://blog-galaxy.onrender.com";
+
 export function CreateBlog({
   theme,
   toggleTheme,
-  apiUrl = "https://blog-galaxy.onrender.com/api/v1/seo/create",
+  apiUrl = BASE_URL + "/api/v1/ai",
 }: CreateBlogProps) {
   const [topic, setTopic] = useState("");
   const [loading, setLoading] = useState(false);
 
+  console.log("API URL in CreateBlog component:", apiUrl);
   // store raw response "as is"
   const [rawText, setRawText] = useState<string>("");
   const [responseObj, setResponseObj] = useState<AnyApiResponse | null>(null);
