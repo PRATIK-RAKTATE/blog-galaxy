@@ -1,7 +1,7 @@
 {
   "name": "server",
-  "version": "1.0.1",
-  "description": "",
+  "version": "1.1.1",
+  "description": "1.1.1 is version of working on the blog",
   "main": "index.js",
   "type": "module",
   "scripts": {

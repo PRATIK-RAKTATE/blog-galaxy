@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import userModel from "../models/user.model.js";
-import transporter from '../config/nodemaler.js';
+// import transporter from '../config/nodemaler.js';
 
 export const register = async (req, res) => {
   const { name, email, password } = req.body;

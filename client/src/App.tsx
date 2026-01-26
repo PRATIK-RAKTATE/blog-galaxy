@@ -19,6 +19,8 @@ import { SecurityPage } from './components/footer/Security'
 import { CreateBlog } from './components/CreateBlog.tsx'
 import SeoTest  from './pages/SeoData.jsx';
 import { WakeUpService } from "./pages/WakeupService.tsx";
+import { BlogPage } from "./pages/ListBlogs.tsx"; 
+import { AddBlog } from "./pages/AddBlog.tsx";
 
 
 type Theme = "light" | "dark";
@@ -85,6 +87,9 @@ export default function App(): JSX.Element {
         <Route path="/create" element={<CreateBlog/> }/>
         <Route path="/seo-test" element={<SeoTest/> }/>
         
+        {/* New Blog Route */}
+        <Route path="/blogs" element={<BlogPage {...commonProps} />} />
+        <Route path="/add-blog" element={<AddBlog {...commonProps} />} />
 
         {/* 404 */}
         <Route path="*" element={<Navigate to="/" replace />} />

@@ -11,6 +11,7 @@ import metricsRoutes from './metrics/metrics.routes.js';
 import aiRoutes from './routes/ai.route.js'
 import seoRoutes from './routes/seo.route.js';
 import brightDataRoutes from './routes/brightData.route.js'
+import blogRoutes from './routes/blog.route.js';
 
 
 const app = express();
@@ -57,6 +58,7 @@ app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/ai', aiRoutes);
 app.use('/api/v1/seo', seoRoutes);
 app.use("/api/v1/seo", brightDataRoutes);
+app.use("/api/v1/blog", blogRoutes);
 
 
 // --- Start ---
