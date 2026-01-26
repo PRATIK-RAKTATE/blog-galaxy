@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 
+const BASE_URL =
+  import.meta.env.VITE_API_BASE_URL?.replace(/\/+$/, "");
+
 export function WakeUpService() {
   useEffect(() => {
-    fetch("https://blog-galaxy.onrender.com/version")
+    fetch(`${BASE_URL}/version`)
       .then(() => console.log("main server is working"))
       .catch(() => {});
 
-    fetch("https://blog-galaxy-stagging.onrender.com/version")
-      .then(() => console.log("staging service is working"))
-      .catch(() => {});
   }, []);
 
   return null;
