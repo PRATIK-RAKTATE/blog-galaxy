@@ -54,7 +54,7 @@ const API_BASE =
 
 console.log("API_BASE from seo.ts :", API_BASE);
 export async function analyzeSeo(input: string): Promise<NonNullable<SeoAnalysisResponse["data"]>> {
-  const res = await fetch(`${API_BASE}api/v1/seo/analyze`, {
+  const res = await fetch(`${API_BASE}/api/v1/seo/analyze`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ input }),
