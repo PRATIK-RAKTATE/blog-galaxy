@@ -6,7 +6,7 @@ import axios from "axios";
  * - Use VITE_BACKEND_URL if provided (ex: https://blog-galaxy.onrender.com)
  * - Otherwise fall back to same-origin (""), which works with Vite proxy in dev.
  */
-const BACKEND_URL = (import.meta.env.VITE_BACKEND_URL || "").replace(/\/+$/, "");
+const BACKEND_URL = (import.meta.env.VITE_API_BASE_URL || "").replace(/\/+$/, "");
 console.log("BrightData API BACKEND_URL from brightDataseo.js :", BACKEND_URL);
 
 // Your Express route is: router.get("/google"...)

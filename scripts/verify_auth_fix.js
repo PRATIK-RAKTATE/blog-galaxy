@@ -2,6 +2,8 @@
 
 const API_URL = 'https://blog-galaxy.onrender.com/api/v1/auth';
 
+console.log("API_URL in verify_auth_fix.js:", API_URL);
+
 async function verifyAuth() {
   const uniqueId = Date.now();
   const user = {

@@ -22,6 +22,7 @@ pnpm-debug.log*
 .env
 .env.local
 .env.development
+.env.stagging
 .env.test
 .env.production
 

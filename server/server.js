@@ -20,21 +20,31 @@ connectDB();
 
 // --- CORS ---
 const allowedOrigins = [
-  'https://blog-galaxy.netlify.app',
-  'https://blog-galaxy-stagging.netlify.app',
-  'http://localhost:3000',
-  'http://locahost:5173'
+  process.env.FRONTEND_URL || "http://localhost:3000",
+  process.env.FRONTEND_STAGING_URL || "http://localhost:5173",
 ];
-app.use(cors({
-  origin: function(origin, callback){
-    if(!origin) return callback(null, true);
-    if(allowedOrigins.includes(origin)) return callback(null, true);
-    callback(new Error('CORS not allowed'));
-  },
-  credentials: true,
-  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
-  allowedHeaders: ['Content-Type','Authorization']
-}));
+
+console.log("CORS_ALLOWED_ORIGINS:", allowedOrigins);
+
+app.use(
+  cors({
+    origin: function (requestOrigin, callback) {
+      // Allow server-to-server / curl / Postman
+      if (!requestOrigin) return callback(null, true);
+
+      if (allowedOrigins.includes(requestOrigin)) {
+        return callback(null, true);
+      }
+
+      return callback(
+        new Error(`CORS not allowed for origin: ${requestOrigin}`)
+      );
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.use(cookieParser());
 app.use(express.json());

@@ -49,7 +49,7 @@ function isBlogOutput(x: unknown): x is BlogOutput {
 type CreateBlogProps = PageCommonProps & { apiUrl?: string };
 
 const BASE_URL =
-  import.meta.env.VITE_BACKEND_URL?.replace(/\/+$/, "") || "https://blog-galaxy.onrender.com";
+  import.meta.env.VITE_API_BASE_URL?.replace(/\/+$/, "") || "https://blog-galaxy.onrender.com";
 
 export function CreateBlog({
   theme,
