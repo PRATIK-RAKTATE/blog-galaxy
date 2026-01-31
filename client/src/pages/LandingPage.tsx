@@ -17,10 +17,10 @@ export function LandingPage({ theme, toggleTheme, setCurrentPage }) {
     <div className="min-h-screen bg-white dark:bg-gray-950 transition-colors duration-300">
       <Header theme={theme} toggleTheme={toggleTheme} setCurrentPage={setCurrentPage} />
       <Hero />
+      <LiveDemo />
       <ProblemSolution />
       <Features />
       <HowItWorks />
-      <LiveDemo />
       <Pricing />
       {/* <Testimonials /> */}
       <Integrations />

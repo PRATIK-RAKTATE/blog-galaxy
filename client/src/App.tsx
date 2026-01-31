@@ -2,6 +2,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 
+// ✅ add these 2 imports
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { LandingPage } from "./pages/LandingPage";
 import { SEOAnalysisDashboard } from "./pages/SEOAnalysisDashboard";
 import { ExploreBlogs } from "./pages/ExploreBlogs";
@@ -14,14 +18,13 @@ import { LoadingScreen } from "./components/LoadingScreen";
 import { LoginPage } from "./pages/LoginPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { DocumentationPage } from "./components/footer/Documentation";
-import { CareersPage } from "./components/footer/Careers.jsx"
-import { SecurityPage } from './components/footer/Security'
-import { CreateBlog } from './components/CreateBlog.tsx'
-import SeoTest  from './pages/SeoData.jsx';
+import { CareersPage } from "./components/footer/Careers.jsx";
+import { SecurityPage } from "./components/footer/Security";
+import { CreateBlog } from "./components/CreateBlog.tsx";
+import SeoTest from "./pages/SeoData.jsx";
 import { WakeUpService } from "./pages/WakeupService.tsx";
-import { BlogPage } from "./pages/ListBlogs.tsx"; 
+import { BlogPage } from "./pages/ListBlogs.tsx";
 import { AddBlog } from "./pages/AddBlog.tsx";
-
 
 type Theme = "light" | "dark";
 
@@ -39,10 +42,6 @@ function AppLayout({
 }): JSX.Element {
   return (
     <div className={theme === "dark" ? "dark" : ""}>
-      {/* If you have a global navbar/header, keep it here once */}
-      {/* <Navbar theme={theme} toggleTheme={toggleTheme} /> */}
-
-      {/* Routed pages render here */}
       <Outlet />
     </div>
   );
@@ -68,33 +67,42 @@ export default function App(): JSX.Element {
 
   return (
     <>
-      <WakeUpService />
-      <Routes>
-      {/* Layout wrapper (keeps theme wrapper stable) */}
-      <Route element={<AppLayout theme={theme} toggleTheme={toggleTheme} />}>
-        <Route path="/" element={<LandingPage {...commonProps} />} />
-        <Route path="/seo-analysis" element={<SEOAnalysisDashboard {...commonProps} />} />
-        <Route path="/explore" element={<ExploreBlogs {...commonProps} />} />
-        <Route path="/contact" element={<ContactUs {...commonProps} />} />
-        <Route path="/about" element={<AboutUs {...commonProps} />} />
-        <Route path="/privacy" element={<PrivacyPolicy {...commonProps} />} />
-        <Route path="/terms" element={<TermsOfService {...commonProps} />} />
-        <Route path="/community" element={<Community {...commonProps} />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} /> 
-        <Route path="/documentation" element={<DocumentationPage/> }/>
-        <Route path="/careers" element={<CareersPage/> }/>
-        <Route path="/create" element={<CreateBlog/> }/>
-        <Route path="/seo-test" element={<SeoTest/> }/>
-        
-        {/* New Blog Route */}
-        <Route path="/blogs" element={<BlogPage {...commonProps} />} />
-        <Route path="/add-blog" element={<AddBlog {...commonProps} />} />
+      {/* ✅ mount once at app root so toast works on every page */}
+      <ToastContainer
+        position="top-right"
+        autoClose={2500}
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+        draggable
+        theme="colored"
+      />
 
-        {/* 404 */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Route>
-    </Routes>
+      <WakeUpService />
+
+      <Routes>
+        <Route element={<AppLayout theme={theme} toggleTheme={toggleTheme} />}>
+          <Route path="/" element={<LandingPage {...commonProps} />} />
+          <Route path="/seo-analysis" element={<SEOAnalysisDashboard {...commonProps} />} />
+          <Route path="/explore" element={<ExploreBlogs {...commonProps} />} />
+          <Route path="/contact" element={<ContactUs {...commonProps} />} />
+          <Route path="/about" element={<AboutUs {...commonProps} />} />
+          <Route path="/privacy" element={<PrivacyPolicy {...commonProps} />} />
+          <Route path="/terms" element={<TermsOfService {...commonProps} />} />
+          <Route path="/community" element={<Community {...commonProps} />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/documentation" element={<DocumentationPage />} />
+          <Route path="/careers" element={<CareersPage />} />
+          <Route path="/create" element={<CreateBlog />} />
+          <Route path="/seo-test" element={<SeoTest />} />
+
+          <Route path="/blogs" element={<BlogPage {...commonProps} />} />
+          <Route path="/add-blog" element={<AddBlog {...commonProps} />} />
+
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Route>
+      </Routes>
     </>
   );
 }

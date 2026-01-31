@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Eye, EyeOff, ArrowLeft } from "lucide-react";
-import { registerUser } from "../api/auth"; // ⬅️ Import the API function
+import { registerUser } from "../api/auth";
+
+// ✅ add these
+import { toast } from "react-toastify";
 
 type RegisterFormState = {
   name: string;
@@ -9,6 +12,12 @@ type RegisterFormState = {
   password: string;
   confirmPassword: string;
 };
+
+function getErrorMessage(err: unknown): string {
+  if (err instanceof Error) return err.message;
+  if (typeof err === "string") return err;
+  return "Registration failed. Please try again.";
+}
 
 export function RegisterPage(): JSX.Element {
   const navigate = useNavigate();
@@ -22,7 +31,6 @@ export function RegisterPage(): JSX.Element {
 
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -31,35 +39,46 @@ export function RegisterPage(): JSX.Element {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null);
 
-    // 1. Client-side Validation
-    if (!form.name || !form.email || !form.password) {
-      setError("All fields are required");
+    const name = form.name.trim();
+    const email = form.email.trim();
+    const password = form.password;
+    const confirmPassword = form.confirmPassword;
+
+    // ✅ Client-side validation (toast)
+    if (!name || !email || !password || !confirmPassword) {
+      toast.error("All fields are required.");
       return;
     }
 
-    if (form.password !== form.confirmPassword) {
-      setError("Passwords do not match");
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match.");
       return;
     }
+
+    setIsSubmitting(true);
+    const loadingId = toast.loading("Creating your account...");
 
     try {
-      setIsSubmitting(true);
+      await registerUser({ name, email, password });
 
-      // 🔵 REAL BACKEND CALL
-      // We send the whole form, but the backend usually only needs name, email, password
-      await registerUser({
-        name: form.name,
-        email: form.email,
-        password: form.password,
+      toast.update(loadingId, {
+        render: "Account created successfully 🎉",
+        type: "success",
+        isLoading: false,
+        autoClose: 1800,
       });
 
-      // 🟢 Success! Redirect to login page
-      navigate("/login"); 
-    } catch (err: any) {
-      // 🔴 Catch errors from the API (e.g., "Email already in use")
-      setError(err.message);
+      navigate("/", { replace: true });
+    } catch (err: unknown) {
+      const message = getErrorMessage(err);
+
+      toast.update(loadingId, {
+        render: message,
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -68,9 +87,8 @@ export function RegisterPage(): JSX.Element {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950 px-4 py-12">
       <div className="w-1/2 max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-8 relative">
-        
-        <Link 
-          to="/" 
+        <Link
+          to="/"
           className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors mb-6 group"
         >
           <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
@@ -85,7 +103,6 @@ export function RegisterPage(): JSX.Element {
         </p>
 
         <form onSubmit={handleSubmit} className="mt-8">
-          {/* Name Field */}
           <div className="mb-5">
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Full Name
@@ -101,7 +118,6 @@ export function RegisterPage(): JSX.Element {
             />
           </div>
 
-          {/* Email Field */}
           <div className="mb-5">
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Email
@@ -117,7 +133,6 @@ export function RegisterPage(): JSX.Element {
             />
           </div>
 
-          {/* Password Field */}
           <div className="mb-5">
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Password
@@ -136,13 +151,13 @@ export function RegisterPage(): JSX.Element {
                 type="button"
                 onClick={() => setShowPassword((v) => !v)}
                 className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+                aria-label={showPassword ? "Hide password" : "Show password"}
               >
                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
           </div>
 
-          {/* Confirm Password Field */}
           <div className="mb-8">
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Confirm Password
@@ -157,13 +172,6 @@ export function RegisterPage(): JSX.Element {
               className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-transparent px-4 py-2 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-
-          {/* Error Message */}
-          {error && (
-            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 text-sm p-3 rounded-lg text-center mb-4">
-              {error}
-            </div>
-          )}
 
           <button
             type="submit"

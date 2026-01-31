@@ -2,11 +2,20 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Eye, EyeOff, ArrowLeft } from "lucide-react";
 import { loginUser } from "../api/auth";
+import { notify } from "../components/ui/toast";
+import { toast } from "react-toastify";
 
 type LoginFormState = {
   email: string;
   password: string;
 };
+
+function getErrorMessage(err: unknown): string {
+  // Upgrade this if you use axios (err.response.data.message, etc.)
+  if (err instanceof Error) return err.message;
+  if (typeof err === "string") return err;
+  return "Login failed. Please try again.";
+}
 
 export function LoginPage(): JSX.Element {
   const navigate = useNavigate();
@@ -14,7 +23,6 @@ export function LoginPage(): JSX.Element {
   const [form, setForm] = useState<LoginFormState>({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -23,33 +31,39 @@ export function LoginPage(): JSX.Element {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null);
 
-    if (!form.email.trim() || !form.password) {
-      setError("Email and password are required.");
+    const email = form.email.trim();
+    const password = form.password;
+
+    if (!email || !password) {
+      notify.error("Email and password are required.");
       return;
     }
 
     setIsSubmitting(true);
+    const loadingId = toast.loading("Signing you in...");
+
     try {
-      // ✅ Cookie-based auth: success is proof (cookie is set by server)
-      await loginUser({
-        email: form.email,
-        password: form.password,
+      await loginUser({ email, password });
+
+      toast.update(loadingId, {
+        render: "Login successful ✅",
+        type: "success",
+        isLoading: false,
+        autoClose: 1800,
       });
 
-      // ✅ navigate only on success
       navigate("/", { replace: true });
     } catch (err: unknown) {
-      const message =
-        err instanceof Error
-          ? err.message
-          : typeof err === "string"
-          ? err
-          : "Login failed. Please try again.";
-
+      const message = getErrorMessage(err);
       console.error("LOGIN_FAILURE_DETAIL:", err);
-      setError(message);
+
+      toast.update(loadingId, {
+        render: message,
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -115,12 +129,6 @@ export function LoginPage(): JSX.Element {
               </button>
             </div>
           </div>
-
-          {error && (
-            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 text-sm p-3 rounded-lg text-center mb-4">
-              {error}
-            </div>
-          )}
 
           <button
             type="submit"
