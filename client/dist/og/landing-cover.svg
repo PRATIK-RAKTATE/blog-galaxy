@@ -1,0 +1,14 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#0A0B14"/>
+  <rect x="70" y="64" width="1060" height="502" rx="36" fill="url(#paint0_linear)" stroke="rgba(255,255,255,0.12)"/>
+  <text x="120" y="220" fill="#F6F1E8" font-size="34" font-family="Inter, sans-serif" letter-spacing="6">SERP-FIRST BLOG WORKSPACE</text>
+  <text x="120" y="330" fill="#F6F1E8" font-size="92" font-family="Fraunces, serif" font-weight="700">Write the post.</text>
+  <text x="120" y="428" fill="#F0B35A" font-size="92" font-family="Fraunces, serif" font-weight="700">See the ranking shape.</text>
+  <text x="120" y="500" fill="#D9D0C2" font-size="32" font-family="Inter, sans-serif">BlogGalaxy adds scoring, schema, links, and a live SERP preview before publish.</text>
+  <defs>
+    <linearGradient id="paint0_linear" x1="70" y1="64" x2="1130" y2="566" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#171A28"/>
+      <stop offset="1" stop-color="#11131F"/>
+    </linearGradient>
+  </defs>
+</svg>
